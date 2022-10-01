@@ -22,5 +22,6 @@ fun String.getCodeFromUrl(): String {
         val idx = pair.indexOf("=")
         queryPairs[pair.substring(0, idx).decodeURLQueryComponent()] = pair.substring(idx + 1).decodeURLQueryComponent()
     }
-    return queryPairs["code"] ?: throw MagisterException("No code in supplied url")
+    return queryPairs["code"] ?: throw MagisterException(HttpStatusCode.BadRequest, "No code in supplied url",
+        "No code in supplied url")
 }
