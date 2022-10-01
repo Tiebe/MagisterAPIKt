@@ -23,7 +23,7 @@ data class Year(
     var profiles: List<Profile>,
 
     @SerialName("persoonlijkeMentor")
-    var personalMentor: String?,
+    var personalMentor: Mentor?,
 
     @SerialName("begin")
     var start: String,

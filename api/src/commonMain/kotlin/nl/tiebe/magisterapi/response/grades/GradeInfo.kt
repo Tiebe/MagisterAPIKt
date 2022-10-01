@@ -9,22 +9,23 @@ data class GradeInfo(
     var columnSortIndex: Int,
 
     @SerialName("KolomNaam")
-    var columnName: String,
+    var columnName: String?,
 
     @SerialName("KolomKopnaam")
-    var columnHeading: String,
+    var columnHeading: String?,
 
     @SerialName("KolomNiveau")
-    var columnLevel: String,
+    var columnLevel: String?,
 
     @SerialName("KolomOmschrijving")
-    var columnDescription: String,
+    var columnDescription: String?,
 
     @SerialName("Weging")
     var weight: Double,
 
     @SerialName("WerkinformatieDatumIngevoerd")
-    var workInformationDateEntered: String,
+    var workInformationDateEntered: String?,
 
     @SerialName("WerkInformatieOmschrijving")
-    var workInformationDescription: String)
+    var workInformationDescription: String?
+)

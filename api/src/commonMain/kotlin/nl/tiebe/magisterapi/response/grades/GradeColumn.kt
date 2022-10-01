@@ -9,23 +9,33 @@ data class GradeColumn (
     var id: Int,
 
     @SerialName("KolomNaam")
-    var name: String,
+    var name: String?,
 
     @SerialName("KolomNummer")
-    var number: String,
+    var number: String?,
 
     @SerialName("KolomVolgNummer")
     var index: String,
 
     @SerialName("KolomKop")
-    var heading: String,
+    var heading: String?,
 
     @SerialName("KolomOmschrijving")
-    var description: String,
+    var description: String?,
 
     @SerialName("KolomSoort")
     var type: Int,
 
     @SerialName("IsHerkansingKolom")
     var isCatchUpColumn: Boolean,
+
+    @SerialName("IsDocentKolom")
+    var isTeacherColumn: Boolean,
+
+    @SerialName("HeeftOnderliggendeKolommen")
+    var HasSubColumns: Boolean,
+
+    @SerialName("IsPTAKolom")
+    var isPTAColumn: Boolean,
+
 )

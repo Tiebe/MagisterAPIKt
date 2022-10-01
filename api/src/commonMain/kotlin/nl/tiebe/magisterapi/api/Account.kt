@@ -14,12 +14,12 @@ class Account {
     lateinit var tokens: TokenResponse
     var schoolYears: List<Year> = listOf()
     var grades: List<Grade> = listOf()
-    suspend fun updateData() {
-        profileInfo = ProfileInfoFlow(this).getProfileInfo()
-        schoolYears = GradeFlow(this).getYears()
+    suspend fun updateData(accessToken: String) {
+        profileInfo = ProfileInfoFlow.getProfileInfo(tenantEndpoint, accessToken)
+        schoolYears = GradeFlow.getYears(tenantEndpoint, accessToken, profileInfo!!.person.id)
         val tempList = mutableListOf<Grade>()
         for (year in schoolYears) {
-            tempList.addAll(GradeFlow(this).getGrades(year))
+            tempList.addAll(GradeFlow.getGrades(tenantEndpoint, accessToken, profileInfo!!.person.id, year))
         }
         grades = tempList
     }
