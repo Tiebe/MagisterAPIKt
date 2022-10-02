@@ -9,7 +9,7 @@ plugins {
 }
 
 version = "1.1"
-group = "nl.tiebe.magister"
+group = "nl.tiebe"
 
 kotlin {
     jvm {
@@ -41,7 +41,7 @@ kotlin {
     
     sourceSets {
         val ktorVersion = "2.0.3"
-        val kryptoVersion = "2.2.0"
+        val kryptoVersion = "3.2.0"
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
@@ -54,7 +54,7 @@ kotlin {
                 implementation("io.matthewnelson.kotlin-components:encoding-base64:1.1.3")
             }
         }
-        val korioVersion = "2.2.0"
+        val korioVersion = "3.2.0"
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -104,5 +104,18 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 33
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OpenbaarLyceumZeist/MagisterAPIKt")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }

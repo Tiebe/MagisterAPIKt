@@ -7,4 +7,4 @@ pluginManagement {
 }
 
 rootProject.name = "MagisterAPI"
-include(":api")
+include(":magisterapi")
