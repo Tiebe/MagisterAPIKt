@@ -40,7 +40,7 @@ kotlin {
     }
     
     sourceSets {
-        val ktorVersion = "2.0.3"
+        val ktorVersion = "latest.integration"
         val kryptoVersion = "3.2.0"
         val commonMain by getting {
             dependencies {
@@ -120,9 +120,7 @@ publishing {
     }
     publications {
         register<MavenPublication>("gpr") {
-            components.forEach {
-                from(it)
-            }
+            from(components["kotlin"])
         }
     }
 }
