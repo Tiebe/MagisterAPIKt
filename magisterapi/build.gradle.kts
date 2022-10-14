@@ -21,7 +21,7 @@ kotlin {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
         }
-        publishLibraryVariants("release", "debug")
+        publishLibraryVariants("release")
     }
     iosX64()
     iosArm64()
