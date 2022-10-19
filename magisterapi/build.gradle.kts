@@ -8,7 +8,7 @@ plugins {
     id("maven-publish")
 }
 
-version = "1.1"
+version = "1.1.1"
 group = "nl.tiebe"
 
 kotlin {
@@ -36,12 +36,10 @@ kotlin {
         }
         version = "1.11.3"
     }
-    repositories {
-    }
-    
+
     sourceSets {
-        val ktorVersion = "latest.integration"
-        val kryptoVersion = "3.2.0"
+        val ktorVersion = "2.0.3"
+        val kryptoVersion = "2.2.0"
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
@@ -49,6 +47,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation("com.benasher44:uuid:0.4.1")
                 implementation("com.soywiz.korlibs.krypto:krypto:$kryptoVersion")
                 implementation("io.matthewnelson.kotlin-components:encoding-base64:1.1.3")
