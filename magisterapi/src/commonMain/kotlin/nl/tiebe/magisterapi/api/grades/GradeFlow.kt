@@ -66,7 +66,7 @@ object GradeFlow {
         )
 
         val json: JsonObject = response.body()
-        println(json)
+
         val grades = json["Items"]?.let { Json.decodeFromJsonElement<List<Grade>>(it) }
 
         for (grade in grades ?: emptyList()) {
