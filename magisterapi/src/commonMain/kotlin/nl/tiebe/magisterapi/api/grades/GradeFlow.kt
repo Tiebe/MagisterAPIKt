@@ -1,4 +1,4 @@
-@file:Suppress("SpellCheckingInspection")
+@file:Suppress("SpellCheckingInspection", "unused")
 
 package nl.tiebe.magisterapi.api.grades
 
@@ -8,15 +8,13 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
 import nl.tiebe.magisterapi.api.requestGET
-import nl.tiebe.magisterapi.response.grades.Grade
-import nl.tiebe.magisterapi.response.grades.GradeInfo
-import nl.tiebe.magisterapi.response.grades.Semester
-import nl.tiebe.magisterapi.response.grades.Year
+import nl.tiebe.magisterapi.response.general.year.grades.Grade
+import nl.tiebe.magisterapi.response.general.year.grades.GradeInfo
+import nl.tiebe.magisterapi.response.general.year.grades.GradeSemester
+import nl.tiebe.magisterapi.response.general.year.Year
 import nl.tiebe.magisterapi.utils.format
 
 object GradeFlow {
-    private const val yearsEndpoint =
-        "api/leerlingen/%s/aanmeldingen?begin=1970-01-01" // %s = account id
     private const val semesterEndpoint =
         "api/personen/%s/aanmeldingen/%s/cijfers/cijferperiodenvooraanmelding" // %s = account id %s = jaar id
     private const val gradesEndpoint =
@@ -24,21 +22,7 @@ object GradeFlow {
     private const val gradeEndpoint =
         "api/personen/%s/aanmeldingen/%s/cijfers/extracijferkolominfo/%s" // %s = account id %s = jaar id %s = cijfer kolom id
 
-
-
-    suspend fun getYears(tenantUrl: Url, accessToken: String, accountId: Int): List<Year> {
-        val response = requestGET(
-            URLBuilder(tenantUrl).appendEncodedPathSegments(
-                yearsEndpoint.format(accountId)
-            ).build(), hashMapOf(), accessToken
-        )
-
-        val json: JsonObject = response.body()
-        val years = json["items"]?.let { Json.decodeFromJsonElement<List<Year>>(it) }
-        return years ?: emptyList()
-    }
-
-    suspend fun getSemesters(tenantUrl: Url, accessToken: String, accountId: Int, year: Year): List<Semester> {
+    suspend fun getSemesters(tenantUrl: Url, accessToken: String, accountId: Int, year: Year): List<GradeSemester> {
         val response = requestGET(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 semesterEndpoint.format(
@@ -50,7 +34,7 @@ object GradeFlow {
 
 
         val json: JsonObject = response.body()
-        val semesters = json["items"]?.let { Json.decodeFromJsonElement<List<Semester>>(it) }
+        val semesters = json["items"]?.let { Json.decodeFromJsonElement<List<GradeSemester>>(it) }
         return semesters ?: emptyList()
     }
 

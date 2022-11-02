@@ -1,13 +1,14 @@
-package nl.tiebe.magisterapi.response.grades
+package nl.tiebe.magisterapi.response.general.year
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import nl.tiebe.magisterapi.response.Link
 
 @Serializable
-data class Profile(
+data class Semester (
     @SerialName("code")
-    val code: String,
+    var code: String,
+
     @SerialName("links")
-    val links: Link,
+    var link: Link
 )
