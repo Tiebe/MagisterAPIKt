@@ -7,10 +7,10 @@ import nl.tiebe.magisterapi.response.Link
 @Serializable
 data class Mentor(
     @SerialName("voorletters")
-    val initials: String,
+    val initials: String?,
     @SerialName("tussenvoegsel")
-    val preposition: String,
+    val preposition: String?,
     @SerialName("achternaam")
-    val lastName: String,
-    val links: Link
+    val lastName: String?,
+    val links: Link?
 )

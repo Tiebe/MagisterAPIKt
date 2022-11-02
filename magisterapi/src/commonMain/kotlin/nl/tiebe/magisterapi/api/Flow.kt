@@ -65,8 +65,6 @@ suspend fun requestPOST(
     accessToken: String? = null,
     retries: Int = 0
 ): HttpResponse {
-
-
     val response = client.post(url.toString()) {
         contentType(ContentType.Application.Json)
         setBody(requestBody)
@@ -131,9 +129,14 @@ suspend fun requestGET(
                 }
             }
         }
-    } catch (e: IllegalArgumentException) {
-        if
-    }
 
-    return response
+        return response
+    } catch (e: IllegalArgumentException) {
+        if (e.message?.contains("text is empty") == true) {
+            println("Retrying #${retries + 1}...")
+            return requestGET(url, body, accessToken, retries + 1)
+        } else {
+            throw e
+        }
+    }
 }
