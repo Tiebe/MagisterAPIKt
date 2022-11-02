@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package nl.tiebe.magisterapi.api
 
 import io.ktor.client.*
@@ -43,7 +45,6 @@ suspend fun requestPOST(
     response.status.let {
         if (it != HttpStatusCode.OK) {
             if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
-                println("Retrying #${retries + 1}...")
                 delay(2000*(retries+1).toLong())
 
                 return requestPOST(url, body, accessToken, retries + 1)
@@ -77,7 +78,6 @@ suspend fun requestPOST(
     response.status.let {
         if (it != HttpStatusCode.OK) {
             if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
-                println("Retrying #${retries + 1}...")
                 delay(2000*(retries+1).toLong())
 
                 return requestPOST(url, requestBody, accessToken, retries + 1)
@@ -117,7 +117,6 @@ suspend fun requestGET(
         response.status.let {
             if (it != HttpStatusCode.OK) {
                 if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
-                    println("Retrying #${retries + 1}...")
                     delay(2000*(retries+1).toLong())
 
                     return requestGET(url, body, accessToken, retries + 1)
@@ -133,7 +132,6 @@ suspend fun requestGET(
         return response
     } catch (e: IllegalArgumentException) {
         if (e.message?.contains("text is empty") == true) {
-            println("Retrying #${retries + 1}...")
             return requestGET(url, body, accessToken, retries + 1)
         } else {
             throw e
