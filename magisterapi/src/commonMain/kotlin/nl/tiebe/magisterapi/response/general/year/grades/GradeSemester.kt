@@ -1,10 +1,10 @@
-package nl.tiebe.magisterapi.response.grades
+package nl.tiebe.magisterapi.response.general.year.grades
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Semester (
+data class GradeSemester (
     @SerialName("Omschrijving")
     var description: String,
 
