@@ -2,6 +2,7 @@ package nl.tiebe.magisterapi.response.general.year.agenda
 import kotlinx.serialization.Serializable
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.json.JsonObject
 import nl.tiebe.magisterapi.response.general.year.Classroom
 import nl.tiebe.magisterapi.response.general.year.Subject
 
@@ -17,15 +18,15 @@ data class AgendaItem(
     @SerialName("Einde")
     val einde: String,
     @SerialName("LesuurVan")
-    val fromPeriod: Int,
+    val fromPeriod: Int?,
     @SerialName("LesuurTotMet")
-    val untilPeriod: Int,
+    val untilPeriod: Int?,
     @SerialName("DuurtHeleDag")
     val lastsAllDay: Boolean,
     @SerialName("Omschrijving")
-    val description: String,
+    val description: String?,
     @SerialName("Lokatie")
-    val location: String,
+    val location: String?,
     @SerialName("Status")
     val status: Int,
     @SerialName("Type")
@@ -37,7 +38,7 @@ data class AgendaItem(
     @SerialName("WeergaveType")
     val displayType: Int,
     @SerialName("Inhoud")
-    val content: String,
+    val content: String?,
     @SerialName("InfoType")
     val infoType: Int,
     @SerialName("Aantekening")
@@ -47,7 +48,7 @@ data class AgendaItem(
     @SerialName("HerhaalStatus")
     val repeatingState: Int,
     @SerialName("Herhaling")
-    val repeating: Repeating,
+    val repeating: JsonObject?,
     @SerialName("Vakken")
     val vakken: List<Subject>,
     @SerialName("Docenten")
@@ -55,13 +56,13 @@ data class AgendaItem(
     @SerialName("Lokalen")
     val classrooms: List<Classroom>,
     @SerialName("Groepen")
-    val groups: String?,
+    val groups: JsonObject?,
     @SerialName("OpdrachtId")
     val assignmentId: Int,
     @SerialName("HeeftBijlagen")
     val hasAttachments: Boolean,
     @SerialName("Bijlagen")
-    val attachments: String?
+    val attachments: JsonObject?
 ) {
     companion object {
         @Serializable
@@ -76,6 +77,8 @@ data class AgendaItem(
         data class Repeating(
             @SerialName("BeginDatum")
             val startingDate: String,
+            @SerialName("EindDatum")
+            val endingDate: String,
             @SerialName("AantalKeer")
             val numberOfTimes: Int,
             @SerialName("Dagelijks")
