@@ -12,6 +12,7 @@ import nl.tiebe.magisterapi.response.general.year.grades.Grade
 import nl.tiebe.magisterapi.response.general.year.grades.GradeInfo
 import nl.tiebe.magisterapi.response.general.year.grades.GradeSemester
 import nl.tiebe.magisterapi.response.general.year.Year
+import nl.tiebe.magisterapi.response.general.year.grades.RecentGrade
 import nl.tiebe.magisterapi.utils.format
 
 object GradeFlow {
@@ -21,6 +22,8 @@ object GradeFlow {
         "api/personen/%s/aanmeldingen/%s/cijfers/cijferoverzichtvooraanmelding?actievePerioden=false&alleenBerekendeKolommen=false&alleenPTAKolommen=false&peildatum=%s" // %s = account id %s = jaar id %s = jaar eind
     private const val gradeEndpoint =
         "api/personen/%s/aanmeldingen/%s/cijfers/extracijferkolominfo/%s" // %s = account id %s = jaar id %s = cijfer kolom id
+    private const val recentGrades =
+        "api/personen/%s/cijfers/laatste?top=%s&skip=%s" // %s = account id %s = top %s = skip
 
     suspend fun getSemesters(tenantUrl: Url, accessToken: String, accountId: Int, year: Year): List<GradeSemester> {
         val response = requestGET(
@@ -74,7 +77,24 @@ object GradeFlow {
         return response.body()
     }
 
+    suspend fun getRecentGrades(tenantUrl: Url, accessToken: String, accountId: Int, top: Int, skip: Int): List<RecentGrade> {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                gradesEndpoint.format(
+                    accountId,
+                    top,
+                    skip
+                )
+            ).build(), hashMapOf(), accessToken
+        )
+
+        val json: JsonObject = response.body()
+
+        val grades = json["items"]?.let { Json.decodeFromJsonElement<List<RecentGrade>>(it) }
+
+        return grades ?: emptyList()
+    }
+
 
 }
-
 
