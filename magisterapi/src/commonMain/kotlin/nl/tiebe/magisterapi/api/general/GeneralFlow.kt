@@ -15,7 +15,7 @@ object GeneralFlow {
     private const val yearsEndpoint =
         "api/leerlingen/%s/aanmeldingen?begin=1970-01-01" // %s = account id
 
-    suspend fun getYears(tenantUrl: Url, accessToken: String, accountId: Int): List<Year> {
+    suspend fun getYears(tenantUrl: String, accessToken: String, accountId: Int): List<Year> {
         val response = requestGET(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 yearsEndpoint.format(accountId)
