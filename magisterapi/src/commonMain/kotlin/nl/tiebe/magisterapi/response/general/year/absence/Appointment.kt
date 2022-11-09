@@ -3,6 +3,8 @@ package nl.tiebe.magisterapi.response.general.year.absence
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import nl.tiebe.magisterapi.response.Link
+import nl.tiebe.magisterapi.response.general.year.Classroom
+import nl.tiebe.magisterapi.response.general.year.Subject
 
 @Serializable
 data class Appointment(
@@ -43,9 +45,9 @@ data class Appointment(
     @SerialName("Lokalen")
     val classrooms: List<Classroom>,
     @SerialName("Lokatie")
-    val location: String,
+    val location: String?,
     @SerialName("Omschrijving")
-    val description: String,
+    val description: String?,
     @SerialName("OpdrachtId")
     val assignmentId: Int,
     @SerialName("Start")
@@ -57,7 +59,7 @@ data class Appointment(
     @SerialName("Type")
     val type: Int,
     @SerialName("Vakken")
-    val subjects: List<Subject>,
+    val subjects: List<Subject>?,
     @SerialName("WeergaveType")
     val displayType: Int
 )

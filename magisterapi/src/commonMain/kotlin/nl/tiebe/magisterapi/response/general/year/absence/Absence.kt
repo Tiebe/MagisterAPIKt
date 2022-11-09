@@ -12,7 +12,7 @@ data class Absence(
     @SerialName("Code")
     val code: String,
     @SerialName("Eind")
-    val eind: String,
+    val end: String,
     @SerialName("Geoorloofd")
     val justified: Boolean,
     @SerialName("Id")
@@ -20,7 +20,7 @@ data class Absence(
     @SerialName("Lesuur")
     val period: Int,
     @SerialName("Omschrijving")
-    val description: String,
+    val description: String?,
     @SerialName("Start")
     val start: String,
     @SerialName("Verantwoordingtype")
