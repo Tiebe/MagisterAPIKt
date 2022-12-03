@@ -22,7 +22,7 @@ object AgendaFlow {
         )
 
         val json: JsonObject = response.body()
-        println(json)
+
         val agenda = json["Items"]?.let { Json.decodeFromJsonElement<List<AgendaItem>>(it) }
         return agenda ?: emptyList()
     }

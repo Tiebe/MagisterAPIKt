@@ -8,7 +8,7 @@ plugins {
     id("maven-publish")
 }
 
-version = "1.1.3"
+version = "1.1.4"
 group = "nl.tiebe"
 
 kotlin {
@@ -39,7 +39,7 @@ kotlin {
 
     sourceSets {
         val ktorVersion = "2.0.3"
-        val kryptoVersion = "2.2.0"
+        val kryptoVersion = "3.4.0"
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
