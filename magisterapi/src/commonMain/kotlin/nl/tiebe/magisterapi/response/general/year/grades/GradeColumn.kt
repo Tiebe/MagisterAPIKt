@@ -1,7 +1,13 @@
 package nl.tiebe.magisterapi.response.general.year.grades
 
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 @Serializable
 data class GradeColumn (
@@ -39,41 +45,41 @@ data class GradeColumn (
     var isPTAColumn: Boolean,
 
 ) {
-    @Serializable
-    enum class Type(type: Int) {
-        @SerialName("0")
+    @Serializable(with = TypeSerializer::class)
+    enum class Type(val type: Int) {
         Unknown(0),
-        @SerialName("1")
         Grade(1),
-        @SerialName("2")
         Average(2),
-        @SerialName("3")
         Maximum(3),
-        @SerialName("4")
         Formula(4),
-        @SerialName("5")
         Minimum(5),
-        @SerialName("6")
         Sum(6),
-        @SerialName("7")
         Count(7),
-        @SerialName("8")
         CEVO(8),
-        @SerialName("9")
         Text(9), // Vrije tekst
-        @SerialName("10")
         CEVO_CPE(10),
-        @SerialName("11")
         CEVO_CIE(11),
-        @SerialName("12")
         Weight(12), // weegfactor
-        @SerialName("13")
         End(13), // eindcijfer / gemiddelde
-        @SerialName("14")
         Deficit(14), // tekortpunten
-        @SerialName("15")
         TreeTop(15), // ???
-        @SerialName("16")
-        SubjectRequirement(16) // vak voorwaarde
+        SubjectRequirement(16); // vak voorwaarde
+
+        companion object {
+            private val map = values().associateBy(Type::type)
+            fun fromInt(type: Int) = map[type]
+        }
+    }
+
+    object TypeSerializer : KSerializer<Type> {
+        override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("type", PrimitiveKind.INT)
+
+        override fun serialize(encoder: Encoder, value: Type) {
+            encoder.encodeInt(value.type)
+        }
+
+        override fun deserialize(decoder: Decoder): Type {
+            return Type.fromInt(decoder.decodeInt()) ?: Type.Unknown
+        }
     }
 }
