@@ -105,9 +105,6 @@ android {
         targetSdk = 33
     }
 }
-dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
-}
 
 publishing {
     repositories {
