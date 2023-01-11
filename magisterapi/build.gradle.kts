@@ -9,7 +9,7 @@ plugins {
 }
 
 version = "1.1.6"
-group = "nl.tiebe"
+group = "dev.tiebe"
 
 kotlin {
     jvm {
@@ -115,7 +115,7 @@ publishing {
     }
     publications {
         register<MavenPublication>("maven") {
-            groupId = "nl.tiebe"
+            groupId = "dev.tiebe"
             artifactId = "magisterapi"
             version = "1.1.6"
 

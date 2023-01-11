@@ -15,15 +15,15 @@ You will need to add my repository to your config by following the instructions 
 In Maven:
 ```
 <dependency>
-  <groupId>nl.tiebe</groupId>
+  <groupId>dev.tiebe</groupId>
   <artifactId>magisterapi</artifactId>
-  <version>1.1.5</version>
+  <version>1.1.6</version>
 </dependency>
 ```
 
 In Gradle:
 ```
-implementation("nl.tiebe:magisterapi:1.1.5")
+implementation("dev.tiebe:magisterapi:1.1.6")
 ```
 
 
