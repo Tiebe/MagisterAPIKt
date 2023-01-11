@@ -2,7 +2,7 @@ package nl.tiebe.magisterapi.response.general.year.absence
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import nl.tiebe.magisterapi.response.Link
+import kotlinx.serialization.json.JsonObject
 import nl.tiebe.magisterapi.response.general.year.Classroom
 import nl.tiebe.magisterapi.response.general.year.Subject
 
@@ -41,7 +41,7 @@ data class Appointment(
     @SerialName("LesuurVan")
     val periodFrom: Int,
     @SerialName("Links")
-    val links: Link?,
+    val links: JsonObject?,
     @SerialName("Lokalen")
     val classrooms: List<Classroom>,
     @SerialName("Lokatie")

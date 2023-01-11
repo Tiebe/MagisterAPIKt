@@ -2,7 +2,7 @@ package nl.tiebe.magisterapi.response.general.year
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import nl.tiebe.magisterapi.response.Link
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class Group (
@@ -16,5 +16,5 @@ data class Group (
     var description: String,
 
     @SerialName("links")
-    var link: Link
+    var link: JsonObject
 )

@@ -2,7 +2,7 @@ package nl.tiebe.magisterapi.response.profileinfo
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import nl.tiebe.magisterapi.response.Link
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class ProfileInfo (
@@ -16,5 +16,5 @@ data class ProfileInfo (
     val groups: List<Group>,
 
     @SerialName("Links")
-    private val links: List<Link?>,
+    private val links: List<JsonObject?>,
 )

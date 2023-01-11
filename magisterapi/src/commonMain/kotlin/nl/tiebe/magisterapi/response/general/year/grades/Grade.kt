@@ -2,11 +2,10 @@ package nl.tiebe.magisterapi.response.general.year.grades
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import nl.tiebe.magisterapi.response.HREF
-import nl.tiebe.magisterapi.response.Link
+import kotlinx.serialization.json.JsonObject
 import nl.tiebe.magisterapi.response.general.year.Group
-import nl.tiebe.magisterapi.response.general.year.Semester
 import nl.tiebe.magisterapi.response.general.year.Mentor
+import nl.tiebe.magisterapi.response.general.year.Semester
 import nl.tiebe.magisterapi.response.general.year.Year
 
 @Serializable
@@ -55,8 +54,8 @@ data class Grade(
 
     @SerialName("VakVrijstelling")
     var subjectExemption2: Boolean,
-    var year: Year = Year(0, Study(0, "", Link(HREF(""))), Group(0, "", "", Link(HREF(""))),
-        Semester("", Link(HREF(""))), listOf(), Mentor("","", "", Link(HREF(""))), "", "", false, Link(HREF("")))
+    var year: Year = Year(0, Study(0, "", JsonObject(mapOf())), Group(0, "", "", JsonObject(mapOf())),
+        Semester("", JsonObject(mapOf())), listOf(), Mentor("","", "", JsonObject(mapOf())), "", "", false, JsonObject(mapOf()))
 
 
 ) {
