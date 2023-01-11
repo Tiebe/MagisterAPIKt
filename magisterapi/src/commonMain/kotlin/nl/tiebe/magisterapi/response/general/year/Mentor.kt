@@ -2,7 +2,7 @@ package nl.tiebe.magisterapi.response.general.year
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import nl.tiebe.magisterapi.response.Link
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class Mentor(
@@ -12,5 +12,5 @@ data class Mentor(
     val preposition: String?,
     @SerialName("achternaam")
     val lastName: String?,
-    val links: Link?
+    val links: JsonObject?
 )
