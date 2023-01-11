@@ -8,7 +8,7 @@ plugins {
     id("maven-publish")
 }
 
-version = "1.1.5"
+version = "1.1.6"
 group = "nl.tiebe"
 
 kotlin {
@@ -42,7 +42,7 @@ kotlin {
         val kryptoVersion = "3.4.0"
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
@@ -100,17 +100,13 @@ kotlin {
 android {
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdk = 21
-        targetSdk = 33
-    }
 }
 
 publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Otarium/MagisterAPIKt")
+            url = uri("https://maven.pkg.github.com/Tiebe/MagisterAPIKt")
             credentials {
                 username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
                 password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
@@ -118,6 +114,19 @@ publishing {
         }
     }
     publications {
+        register<MavenPublication>("maven") {
+            groupId = "nl.tiebe"
+            artifactId = "magisterapi"
+            version = "1.1.6"
+
+            from(components["kotlin"])
+
+            pom {
+                name.set("MagisterAPIKt")
+                description.set("A Kotlin Multiplatform library for the Magister API")
+            }
+        }
+
         register<MavenPublication>("gpr") {
             from(components["kotlin"])
         }
