@@ -2,18 +2,18 @@
 
 package dev.tiebe.magisterapi.api.grades
 
+import dev.tiebe.magisterapi.api.requestGET
+import dev.tiebe.magisterapi.response.general.year.Year
+import dev.tiebe.magisterapi.response.general.year.grades.Grade
+import dev.tiebe.magisterapi.response.general.year.grades.GradeInfo
+import dev.tiebe.magisterapi.response.general.year.grades.GradeSemester
+import dev.tiebe.magisterapi.response.general.year.grades.RecentGrade
+import dev.tiebe.magisterapi.utils.format
 import io.ktor.client.call.*
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
-import dev.tiebe.magisterapi.api.requestGET
-import dev.tiebe.magisterapi.response.general.year.grades.Grade
-import dev.tiebe.magisterapi.response.general.year.grades.GradeInfo
-import dev.tiebe.magisterapi.response.general.year.grades.GradeSemester
-import dev.tiebe.magisterapi.response.general.year.Year
-import dev.tiebe.magisterapi.response.general.year.grades.RecentGrade
-import dev.tiebe.magisterapi.utils.format
 
 object GradeFlow {
     private const val semesterEndpoint =
@@ -57,7 +57,7 @@ object GradeFlow {
         val grades = json["Items"]?.let { Json.decodeFromJsonElement<List<Grade>>(it) }
 
         for (grade in grades ?: emptyList()) {
-            grade.year = year
+            grade.yearId = year.id
         }
 
         return grades ?: emptyList()
@@ -68,7 +68,7 @@ object GradeFlow {
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 gradeEndpoint.format(
                     accountId,
-                    grade.year.id,
+                    grade.yearId,
                     grade.gradeColumn.id
                 )
             ).build(), hashMapOf(), accessToken
