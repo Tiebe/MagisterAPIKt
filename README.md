@@ -17,13 +17,13 @@ In Maven:
 <dependency>
   <groupId>dev.tiebe</groupId>
   <artifactId>magisterapi</artifactId>
-  <version>1.1.6</version>
+  <version>1.1.7</version>
 </dependency>
 ```
 
 In Gradle:
 ```
-implementation("dev.tiebe:magisterapi:1.1.6")
+implementation("dev.tiebe:magisterapi:1.1.7")
 ```
 
 
