@@ -37,9 +37,9 @@ data class Appointment(
     @SerialName("IsOnlineDeelname")
     val isOnline: Boolean,
     @SerialName("LesuurTotMet")
-    val periodUntil: Int,
+    val periodUntil: Int?,
     @SerialName("LesuurVan")
-    val periodFrom: Int,
+    val periodFrom: Int?,
     @SerialName("Links")
     val links: JsonObject?,
     @SerialName("Lokalen")
