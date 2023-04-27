@@ -138,3 +138,36 @@ suspend fun requestGET(
         }
     }
 }
+
+suspend fun requestPATCH(
+    url: Url,
+    requestBody: Any,
+    accessToken: String? = null,
+    retries: Int = 0
+): HttpResponse {
+    val response = client.patch(url.toString()) {
+        contentType(ContentType.Application.Json)
+        setBody(requestBody)
+
+        if (accessToken != null) {
+            bearerAuth(accessToken)
+        }
+    }
+
+    response.status.let {
+        if (it != HttpStatusCode.OK && it != HttpStatusCode.NoContent) {
+            if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
+                delay(2000*(retries+1).toLong())
+
+                return requestPOST(url, requestBody, accessToken, retries + 1)
+            } else {
+                throw MagisterException(
+                    response.status, response.bodyAsText(),
+                    "Request failed with status code ${it.value} with message ${response.bodyAsText()}"
+                )
+            }
+        }
+    }
+
+    return response
+}
