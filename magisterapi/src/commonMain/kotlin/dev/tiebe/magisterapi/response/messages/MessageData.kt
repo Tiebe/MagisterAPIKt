@@ -59,13 +59,13 @@ data class MessageData(
             @SerialName("id")
             val id: Int,
             @SerialName("isAanOuder")
-            val isAanOuder: Boolean,
+            val isParent: Boolean,
             @SerialName("links")
             val links: Links,
             @SerialName("type")
             val type: String,
             @SerialName("weergavenaam")
-            val weergavenaam: String
+            val name: String
         ) {
             @Serializable
             data class Links(

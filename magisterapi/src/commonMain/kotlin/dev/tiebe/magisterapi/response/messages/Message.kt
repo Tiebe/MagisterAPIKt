@@ -3,15 +3,18 @@ package dev.tiebe.magisterapi.response.messages
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class Message(
     @SerialName("afzender")
-    val sender: Sender,
+    val sender: Sender? = null,
+    @SerialName("ontvangers")
+    val receivers: List<Receiver>? = null,
     @SerialName("beantwoordOp")
-    val repliedOn: String?,
+    val repliedOn: String? = null,
     @SerialName("doorgestuurdOp")
-    val forwardedOn: String?,
+    val forwardedOn: String? = null,
     @SerialName("heeftBijlagen")
     val hasAttachments: Boolean,
     @SerialName("heeftPrioriteit")
@@ -47,6 +50,20 @@ data class Message(
                 )
             }
         }
+
+        @Serializable
+        data class Receiver(
+            @SerialName("id")
+            val id: Int,
+            @SerialName("isAanOuder")
+            val isParent: Boolean,
+            @SerialName("links")
+            val links: JsonObject,
+            @SerialName("type")
+            val type: String,
+            @SerialName("weergavenaam")
+            val name: String
+        )
 
         @Serializable
         data class Links(

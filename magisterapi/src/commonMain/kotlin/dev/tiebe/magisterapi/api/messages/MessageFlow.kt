@@ -4,12 +4,14 @@ package dev.tiebe.magisterapi.api.messages
 
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.api.requestPATCH
+import dev.tiebe.magisterapi.response.messages.Attachment
 import dev.tiebe.magisterapi.response.messages.Message
 import dev.tiebe.magisterapi.response.messages.MessageData
 import dev.tiebe.magisterapi.response.messages.MessageFolder
 import io.ktor.client.call.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.http.URLBuilder
+import io.ktor.utils.io.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -113,7 +115,27 @@ object MessageFlow {
                 )
             ), accessToken
         )
+    }
+    
+    suspend fun getAttachmentList(tenantUrl: Url, accessToken: String, attachmentLink: String): List<Attachment> {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                attachmentLink
+            ).build(), hashMapOf(), accessToken
+        )
 
+        val json: JsonObject = response.body()
+        val attachments = json["items"]?.let { Json.decodeFromJsonElement<List<Attachment>>(it) }
+        return attachments ?: emptyList()
+    }
 
+    suspend fun downloadAttachment(tenantUrl: Url, accessToken: String, downloadLink: String): ByteReadChannel {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                downloadLink
+            ).build(), hashMapOf(), accessToken
+        )
+
+        return response.bodyAsChannel()
     }
 }
