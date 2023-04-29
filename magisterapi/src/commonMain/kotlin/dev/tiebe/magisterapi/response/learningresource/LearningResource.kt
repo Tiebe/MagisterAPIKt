@@ -9,7 +9,7 @@ data class LearningResource(
     @SerialName("EAN")
     val eAN: String,
     @SerialName("Eind")
-    val end: String,
+    val end: String?,
     @SerialName("Id")
     val id: Int,
     @SerialName("Links")
@@ -19,7 +19,7 @@ data class LearningResource(
     @SerialName("PreviewImageUrl")
     val previewImageUrl: String?,
     @SerialName("Start")
-    val start: String,
+    val start: String?,
     @SerialName("Status")
     val status: Int,
     @SerialName("Titel")
