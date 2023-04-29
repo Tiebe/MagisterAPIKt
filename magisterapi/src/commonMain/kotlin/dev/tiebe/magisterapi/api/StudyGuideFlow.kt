@@ -3,9 +3,13 @@
 package dev.tiebe.magisterapi.api
 
 import dev.tiebe.magisterapi.response.studyguide.StudyGuide
+import dev.tiebe.magisterapi.response.studyguide.StudyGuideContent
+import dev.tiebe.magisterapi.response.studyguide.StudyGuideContentItem
 import dev.tiebe.magisterapi.utils.format
 import io.ktor.client.call.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.utils.io.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
@@ -17,7 +21,7 @@ object StudyGuideFlow {
     suspend fun getFullStudyGuideList(tenantUrl: Url, accessToken: String, studentId: Int, date: String): List<StudyGuide> {
         val studyGuideList = getStudyGuideList(tenantUrl, accessToken, studentId, date)
         val projectList = getProjectList(tenantUrl, accessToken, studentId, date)
-        return studyGuideList + projectList
+        return (studyGuideList + projectList).sortedBy { it.title }
     }
 
     suspend fun getStudyGuideList(tenantUrl: Url, accessToken: String, studentId: Int, date: String): List<StudyGuide> {
@@ -42,6 +46,36 @@ object StudyGuideFlow {
         val json: JsonObject = response.body()
         val studyGuide = json["Items"]?.let { Json.decodeFromJsonElement<List<StudyGuide>>(it) }
         return studyGuide ?: emptyList()
+    }
+
+    suspend fun getStudyGuideContent(tenantUrl: Url, accessToken: String, studyGuideLink: String): StudyGuideContent {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                studyGuideLink
+            ).build(), hashMapOf(), accessToken
+        )
+
+        return response.body()
+    }
+
+    suspend fun getStudyGuideContentItem(tenantUrl: Url, accessToken: String, itemLink: String): StudyGuideContentItem {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                itemLink
+            ).build(), hashMapOf(), accessToken
+        )
+
+        return response.body()
+    }
+
+    suspend fun downloadAttachment(tenantUrl: Url, accessToken: String, downloadLink: String): ByteReadChannel {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                downloadLink
+            ).build(), hashMapOf(), accessToken
+        )
+
+        return response.bodyAsChannel()
     }
 
 
