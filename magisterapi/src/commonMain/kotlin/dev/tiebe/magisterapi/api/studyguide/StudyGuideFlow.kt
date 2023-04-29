@@ -1,7 +1,8 @@
 @file:Suppress("DuplicatedCode", "unused", "MemberVisibilityCanBePrivate")
 
-package dev.tiebe.magisterapi.api
+package dev.tiebe.magisterapi.api.studyguide
 
+import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.response.studyguide.StudyGuide
 import dev.tiebe.magisterapi.response.studyguide.StudyGuideContent
 import dev.tiebe.magisterapi.response.studyguide.StudyGuideContentItem
