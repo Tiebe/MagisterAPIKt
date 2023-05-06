@@ -64,6 +64,8 @@ data class MessageData(
             val links: Links,
             @SerialName("type")
             val type: String,
+            @SerialName("mailGroep")
+            val mailGroup: String = null,
             @SerialName("weergavenaam")
             val name: String
         ) {
