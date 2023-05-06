@@ -13,9 +13,9 @@ data class Assignment(
     @SerialName("Beoordeling")
     val grade: String,
     @SerialName("Bijlagen")
-    val attachments: List<Bijlagen>,
+    val attachments: List<Attachment>,
     @SerialName("Docenten")
-    val teachers: List<Docenten>?,
+    val teachers: List<Teacher>?,
     @SerialName("Id")
     val id: Int,
     @SerialName("IngeleverdOp")
@@ -45,21 +45,21 @@ data class Assignment(
 ) {
     companion object {
         @Serializable
-        data class Bijlagen(
+        data class Attachment(
             @SerialName("BronSoort")
-            val bronSoort: Int,
+            val resourceType: Int,
             @SerialName("ContentType")
             val contentType: String,
             @SerialName("Datum")
             val datum: String,
             @SerialName("Grootte")
-            val grootte: Int,
+            val size: Int,
             @SerialName("Id")
             val id: Int,
             @SerialName("Links")
             val links: List<Link>,
             @SerialName("Naam")
-            val naam: String,
+            val name: String,
             @SerialName("Status")
             val status: Int,
             @SerialName("UniqueId")
@@ -77,13 +77,13 @@ data class Assignment(
         )
 
         @Serializable
-        data class Docenten(
+        data class Teacher(
             @SerialName("Docentcode")
-            val docentcode: String,
+            val teacherCode: String,
             @SerialName("Id")
             val id: Int,
             @SerialName("Naam")
-            val naam: String
+            val name: String
         )
 
         @Serializable

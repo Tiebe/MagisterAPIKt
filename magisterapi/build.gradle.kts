@@ -8,7 +8,7 @@ plugins {
     id("maven-publish")
 }
 
-version = "1.1.7"
+version = "1.1.8"
 group = "dev.tiebe"
 
 kotlin {

@@ -4,9 +4,11 @@ package dev.tiebe.magisterapi.api.assignment
 
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.response.assignment.Assignment
+import dev.tiebe.magisterapi.response.assignment.AssignmentVersion
 import dev.tiebe.magisterapi.utils.format
 import io.ktor.client.call.*
 import io.ktor.http.*
+import io.ktor.http.content.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
@@ -51,6 +53,20 @@ object AssignmentFlow {
         val response = requestGET(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 assignmentLink
+            ).build(), hashMapOf(), accessToken
+        )
+
+        return response.body()
+    }
+
+    suspend fun getVersionInfo(
+        tenantUrl: Url,
+        accessToken: String,
+        versionLink: String
+    ): AssignmentVersion {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                versionLink
             ).build(), hashMapOf(), accessToken
         )
 
