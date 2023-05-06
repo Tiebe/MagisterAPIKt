@@ -65,7 +65,7 @@ data class MessageData(
             @SerialName("type")
             val type: String,
             @SerialName("mailGroep")
-            val mailGroup: String = null,
+            val mailGroup: String? = null,
             @SerialName("weergavenaam")
             val name: String
         ) {
