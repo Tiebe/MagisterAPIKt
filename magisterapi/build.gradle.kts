@@ -5,7 +5,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization") version "1.7.10"
-    id("maven-publish")
+    id("convention.publication")
 }
 
 version = "1.1.8"
@@ -102,33 +102,3 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Tiebe/MagisterAPIKt")
-            credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
-            }
-        }
-    }
-    publications {
-        register<MavenPublication>("maven") {
-            groupId = "dev.tiebe"
-            artifactId = "magisterapi"
-            version = "1.1.7"
-
-            from(components["kotlin"])
-
-            pom {
-                name.set("MagisterAPIKt")
-                description.set("A Kotlin Multiplatform library for the Magister API")
-            }
-        }
-
-        register<MavenPublication>("gpr") {
-            from(components["kotlin"])
-        }
-    }
-}
