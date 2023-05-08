@@ -7,38 +7,36 @@ import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class AssignmentVersion(
-    @SerialName("Afgesloten")
-    val closed: Boolean,
     @SerialName("BeoordeeldOp")
-    val gradedOn: String,
+    val gradedOn: String?,
     @SerialName("Beoordeling")
-    val grade: String,
-    @SerialName("Bijlagen")
-    val attachments: List<Bijlagen>,
-    @SerialName("Docenten")
-    val teachers: List<Docenten>,
+    val grade: String?,
+    @SerialName("DocentOpmerking")
+    val teacherNote: String?,
+    @SerialName("FeedbackBijlagen")
+    val feedbackAttachments: List<FeedbackBijlagen>,
+    @SerialName("GestartOp")
+    val startedOn: String?,
     @SerialName("Id")
     val id: Int,
     @SerialName("IngeleverdOp")
-    val submittedOn: String,
+    val submittedOn: String?,
     @SerialName("InleverenVoor")
     val deadline: String,
-    @SerialName("LaatsteOpdrachtVersienummer")
-    val latestAssignmentVersionNumber: Int,
+    @SerialName("IsTeLaat")
+    val isLate: Boolean,
+    @SerialName("LeerlingBijlagen")
+    val studentAttachments: List<LeerlingBijlagen>,
+    @SerialName("LeerlingOpmerking")
+    val studentNote: String?,
     @SerialName("Links")
-    val links: List<JsonObject>,
-    @SerialName("MagInleveren")
-    val magInleveren: Boolean,
-    @SerialName("Omschrijving")
-    val omschrijving: String,
-    @SerialName("OpnieuwInleveren")
-    val opnieuwInleveren: Boolean,
-    @SerialName("StatusLaatsteOpdrachtVersie")
-    val statusLaatsteOpdrachtVersie: Int,
-    @SerialName("Titel")
-    val titel: String,
+    val links: JsonObject?,
+    @SerialName("OpdrachtId")
+    val assignmentId: Int,
+    @SerialName("Status")
+    val status: Int,
     @SerialName("Vak")
-    val vak: String,
-    @SerialName("VersieNavigatieItems")
-    val versieNavigatieItems: List<VersieNavigatieItem>
+    val subject: String,
+    @SerialName("VersieNummer")
+    val versionIndex: Int
 )
