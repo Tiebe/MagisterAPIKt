@@ -36,5 +36,8 @@ jobs:
       with:
         arguments: publish
       env:
-        USERNAME: ${{ secrets.USERNAME }}
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+        SIGNING_PASSWORD: ${{ secrets.SIGNING_KEY_ID }}
+        SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
