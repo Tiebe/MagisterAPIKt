@@ -3,7 +3,6 @@ package dev.tiebe.magisterapi.response.messages
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class Message(
@@ -55,12 +54,12 @@ data class Message(
         data class Receiver(
             @SerialName("id")
             val id: Int,
-            @SerialName("isAanOuder")
-            val isParent: Boolean,
             @SerialName("links")
-            val links: JsonObject,
+            val links: Links,
             @SerialName("type")
             val type: String,
+            @SerialName("mailGroep")
+            val mailGroup: String?,
             @SerialName("weergavenaam")
             val name: String
         )

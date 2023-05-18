@@ -12,12 +12,12 @@ import dev.tiebe.magisterapi.response.general.year.agenda.AgendaItem
 import dev.tiebe.magisterapi.utils.format
 
 object AgendaFlow {
-    private const val agendaEndpoint = "api/personen/%s/afspraken?status=1&van=%s&tot=%s" // %s = account id, %s = start date, %s = end date
+    private const val agendaEndpoint = "api/personen/%s/afspraken?%svan=%s&tot=%s" // %s = account id, %s = status, %s = start date, %s = end date
 
-    suspend fun getAgenda(tenantUrl: Url, accessToken: String, accountId: Int, start: String, end: String): List<AgendaItem> {
+    suspend fun getAgenda(tenantUrl: Url, accessToken: String, accountId: Int, start: String, end: String, status: Int? = null): List<AgendaItem> {
         val response = requestGET(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
-                agendaEndpoint.format(accountId, start, end)
+                agendaEndpoint.format(accountId, if (status != null) "status=$status&" else "", start, end)
             ).build(), hashMapOf(), accessToken
         )
 

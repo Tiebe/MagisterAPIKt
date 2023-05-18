@@ -8,7 +8,7 @@ plugins {
     id("convention.publication")
 }
 
-version = "1.1.9"
+version = "1.1.10-alpha01"
 group = "dev.tiebe"
 
 kotlin {
@@ -42,7 +42,7 @@ kotlin {
         val kryptoVersion = "3.4.0"
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
