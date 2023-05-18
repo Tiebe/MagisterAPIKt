@@ -52,14 +52,14 @@ publishing {
             }
         }
 
-/*        maven {
+        maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Tiebe/MagisterAPIKt")
             credentials {
                 username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
                 password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
             }
-        }*/
+        }
     }
 
     // Configure all publications
@@ -92,6 +92,10 @@ publishing {
             }
 
         }
+    }
+
+    publications.register<MavenPublication>("gpr") {
+        from(components["kotlin"])
     }
 }
 
