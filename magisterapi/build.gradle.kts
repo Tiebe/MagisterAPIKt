@@ -22,6 +22,7 @@ kotlin {
             kotlinOptions.jvmTarget = "11"
         }
         publishLibraryVariants("release")
+        publishLibraryVariantsGroupedByFlavor = true
     }
     iosX64()
     iosArm64()
