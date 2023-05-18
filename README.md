@@ -10,20 +10,18 @@ This is an wrapper for the Magister API in Kotlin. It supports Kotlin Multiplatf
 
 Add this project as a dependency to your Gradle or Maven project.
 
-You will need to add my repository to your config by following the instructions [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry)
-
 In Maven:
 ```
 <dependency>
   <groupId>dev.tiebe</groupId>
   <artifactId>magisterapi</artifactId>
-  <version>1.1.7</version>
+  <version>1.1.9</version>
 </dependency>
 ```
 
 In Gradle:
 ```
-implementation("dev.tiebe:magisterapi:1.1.7")
+implementation("dev.tiebe:magisterapi:1.1.9")
 ```
 
 
