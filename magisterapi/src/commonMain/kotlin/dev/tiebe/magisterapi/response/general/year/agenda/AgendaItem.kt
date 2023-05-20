@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package dev.tiebe.magisterapi.response.general.year.agenda
 import kotlinx.serialization.Serializable
 
@@ -50,7 +52,7 @@ data class AgendaItem(
     @SerialName("Herhaling")
     val repeating: JsonObject?,
     @SerialName("Vakken")
-    val vakken: List<Subject>,
+    val subjects: List<Subject>,
     @SerialName("Docenten")
     val teachers: List<Teacher>,
     @SerialName("Lokalen")
@@ -64,6 +66,18 @@ data class AgendaItem(
     @SerialName("Bijlagen")
     val attachments: JsonObject?
 ) {
+    fun getInfoType(): InfoType {
+        return InfoType.values().find { it.infoType == infoType } ?: InfoType.NONE
+    }
+
+    fun getType(): Type {
+        return Type.values().find { it.type == type } ?: Type.NONE
+    }
+
+    fun getStatus(): Status {
+        return Status.values().find { it.status == status } ?: Status.NONE
+    }
+
     companion object {
         @Serializable
         data class Link(
@@ -92,7 +106,51 @@ data class AgendaItem(
         )
 
         enum class Type(val type: Int) {
-            LESSON(1)
+            NONE(0), // None
+            PERSONAL(1), // Persoonlijk
+            GENERAL(2), // Algemeen
+            SCHOOL_WIDE(3), // School breed
+            INTERNSHIP(4), // Stage
+            INTAKE(5), // Intake
+            FREE(6), // Roostervrij
+            KWT(7), // Kwt
+            STANDBY(8), // Standby
+            BLOCKED(9), // Blokkade
+            OTHER(10), // Overig
+            BLOCKED_CLASSROOM(11), // Blokkade lokaal
+            BLOCKED_CLASS(12), // Blokkade klas
+            CLASS(13), // Les
+            STUDY_HOUSE(14), // Studiehuis
+            FREE_STUDY(15), // Roostervrije studie
+            SCHEDULE(16), // Planning
+            MEASURES(101), // Maatregelen
+            PRESENTATIONS(102), // Presentaties
+            EXAM_SCHEDULE(103) // Examen rooster
+        }
+
+        enum class InfoType(val infoType: Int) {
+            NONE(0),
+            HOMEWORK(1),
+            TEST(2),
+            EXAM(3),
+            WRITTEN_EXAM(4),
+            ORAL_EXAM(5),
+            INFO(6),
+            NOTE(7)
+        }
+
+        enum class Status(val status: Int) {
+            NONE(0), // Geen status
+            SCHEDULED_AUTOMATICALLY(1), // Geroosterd automatisch
+            SCHEDULED_MANUALLY(2), // Geroosterd handmatig
+            CHANGED(3), // Gewijzigd
+            CANCELED_MANUALLY(4), // Vervallen handmatig
+            CANCELED_AUTOMATICALLY(5), // Vervallen automatisch
+            IN_USE(6), // In gebruik
+            FINISHED(7), // Afgesloten
+            USED(8), // Ingezet
+            MOVED(9), // Verplaatst
+            CHANGED_AND_MOVED(10) // Gewijzigd en verplaatst
         }
     }
 }
