@@ -69,9 +69,9 @@ data class Message(
             @SerialName("bijlagen")
             val attachments: Link? = null,
             @SerialName("map")
-            val folder: Link,
+            val folder: Link? = null,
             @SerialName("self")
-            val self: Link
+            val self: Link? = null
         )
 
         @Serializable
