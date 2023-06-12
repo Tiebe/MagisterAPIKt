@@ -51,7 +51,6 @@ data class Grade(
     var subjectExemption2: Boolean,
     var yearId: Int = -1
 
-
 ) {
     @Serializable
     data class GradeSemester(
