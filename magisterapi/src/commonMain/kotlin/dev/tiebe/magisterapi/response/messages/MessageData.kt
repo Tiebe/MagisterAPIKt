@@ -45,7 +45,7 @@ data class MessageData(
             @SerialName("map")
             val folder: Link? = null,
             @SerialName("self")
-            val self: Link
+            val self: Link? = null
         )
 
         @Serializable
@@ -70,7 +70,7 @@ data class MessageData(
             @Serializable
             data class Links(
                 @SerialName("self")
-                val self: Link
+                val self: Link? = null
             )
         }
 
