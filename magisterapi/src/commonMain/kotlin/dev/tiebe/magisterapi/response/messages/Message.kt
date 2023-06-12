@@ -45,7 +45,7 @@ data class Message(
                 @Serializable
                 data class Links(
                     @SerialName("self")
-                    val self: Link
+                    val self: Link? = null
                 )
             }
         }
