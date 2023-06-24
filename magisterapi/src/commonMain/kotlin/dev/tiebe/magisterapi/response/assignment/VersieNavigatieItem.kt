@@ -12,4 +12,12 @@ data class VersieNavigatieItem(
     val links: List<Link>,
     @SerialName("Omschrijving")
     val omschrijving: String
-)
+) {
+    @Serializable
+    data class Link(
+        @SerialName("Href")
+        val href: String,
+        @SerialName("Rel")
+        val rel: String
+    )
+}

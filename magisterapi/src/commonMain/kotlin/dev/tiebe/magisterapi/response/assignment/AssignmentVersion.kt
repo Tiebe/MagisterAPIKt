@@ -14,7 +14,7 @@ data class AssignmentVersion(
     @SerialName("DocentOpmerking")
     val teacherNote: String?,
     @SerialName("FeedbackBijlagen")
-    val feedbackAttachments: List<FeedbackBijlagen>,
+    val feedbackAttachments: List<Attachment>,
     @SerialName("GestartOp")
     val startedOn: String?,
     @SerialName("Id")
@@ -26,7 +26,7 @@ data class AssignmentVersion(
     @SerialName("IsTeLaat")
     val isLate: Boolean,
     @SerialName("LeerlingBijlagen")
-    val studentAttachments: List<LeerlingBijlagen>,
+    val studentAttachments: List<Attachment>,
     @SerialName("LeerlingOpmerking")
     val studentNote: String?,
     @SerialName("Links")

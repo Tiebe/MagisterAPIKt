@@ -3,6 +3,7 @@ package dev.tiebe.magisterapi.response.assignment
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
 data class Attachment(
     @SerialName("BronSoort")
     val attachmentType: Int,
