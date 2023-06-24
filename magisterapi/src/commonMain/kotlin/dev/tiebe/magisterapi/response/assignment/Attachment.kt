@@ -1,23 +1,21 @@
 package dev.tiebe.magisterapi.response.assignment
 
-
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class FeedbackBijlagen(
+data class Attachment(
     @SerialName("BronSoort")
-    val bronSoort: Int,
+    val attachmentType: Int,
     @SerialName("ContentType")
     val contentType: String,
     @SerialName("Datum")
-    val datum: String,
+    val date: String,
     @SerialName("Grootte")
-    val grootte: Int,
+    val size: Int,
     @SerialName("Id")
     val id: Int,
     @SerialName("Links")
-    val links: List<LinkX>,
+    val links: List<Link>,
     @SerialName("Naam")
     val naam: String,
     @SerialName("Status")
@@ -26,4 +24,12 @@ data class FeedbackBijlagen(
     val uniqueId: String,
     @SerialName("Url")
     val url: String?
-)
+) {
+    @Serializable
+    data class Link(
+        @SerialName("Href")
+        val href: String,
+        @SerialName("Rel")
+        val rel: String
+    )
+}

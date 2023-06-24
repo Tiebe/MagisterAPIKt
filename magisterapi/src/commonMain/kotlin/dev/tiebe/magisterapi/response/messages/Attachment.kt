@@ -29,7 +29,9 @@ data class Attachment(
             @SerialName("self")
             val self: Link,
             @SerialName("download")
-            val downloadLink: Link
+            val downloadLink: Link,
+            @SerialName("thumb")
+            val thumbnail: Link
         )
 
         @Serializable
