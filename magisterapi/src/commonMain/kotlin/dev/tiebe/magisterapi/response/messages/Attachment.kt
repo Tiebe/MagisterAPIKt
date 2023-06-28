@@ -31,7 +31,7 @@ data class Attachment(
             @SerialName("download")
             val downloadLink: Link,
             @SerialName("thumb")
-            val thumbnail: Link
+            val thumbnail: Link? = null
         )
 
         @Serializable
