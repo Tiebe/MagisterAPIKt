@@ -8,7 +8,7 @@ plugins {
     id("convention.publication")
 }
 
-version = "1.1.10-alpha08"
+version = "1.1.10-alpha09"
 group = "dev.tiebe"
 
 kotlin {
