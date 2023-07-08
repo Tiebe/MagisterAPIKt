@@ -28,8 +28,6 @@ suspend fun requestPOST(
     accessToken: String? = null,
     retries: Int = 0
 ): HttpResponse {
-
-
     val response = client.submitForm(url.toString(),
         formParameters = Parameters.build {
             for ((key, value) in body) {
@@ -42,20 +40,7 @@ suspend fun requestPOST(
         }
     }
 
-    response.status.let {
-        if (it != HttpStatusCode.OK) {
-            if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
-                delay(2000*(retries+1).toLong())
-
-                return requestPOST(url, body, accessToken, retries + 1)
-            } else {
-                throw MagisterException(
-                    response.status, response.bodyAsText(),
-                    "Request failed with status code ${it.value} with message ${response.bodyAsText()}"
-                )
-            }
-        }
-    }
+    if (checkResponseStatus(response.status, response, retries)) return requestPOST(url, body, accessToken, retries + 1)
 
     return response
 }
@@ -75,20 +60,7 @@ suspend fun requestPOST(
         }
     }
 
-    response.status.let {
-        if (it != HttpStatusCode.OK) {
-            if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
-                delay(2000*(retries+1).toLong())
-
-                return requestPOST(url, requestBody, accessToken, retries + 1)
-            } else {
-                throw MagisterException(
-                    response.status, response.bodyAsText(),
-                    "Request failed with status code ${it.value} with message ${response.bodyAsText()}"
-                )
-            }
-        }
-    }
+    if (checkResponseStatus(response.status, response, retries)) return requestPOST(url, requestBody, accessToken, retries + 1)
 
     return response
 }
@@ -114,20 +86,7 @@ suspend fun requestGET(
             }
         }
 
-        response.status.let {
-            if (it != HttpStatusCode.OK) {
-                if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
-                    delay(2000*(retries+1).toLong())
-
-                    return requestGET(url, body, accessToken, retries + 1)
-                } else {
-                    throw MagisterException(
-                        response.status, response.bodyAsText(),
-                        "Request failed with status code ${it.value} with message ${response.bodyAsText()}"
-                    )
-                }
-            }
-        }
+        if (checkResponseStatus(response.status, response, retries)) return requestGET(url, body, accessToken, retries + 1)
 
         return response
     } catch (e: IllegalArgumentException) {
@@ -154,20 +113,47 @@ suspend fun requestPATCH(
         }
     }
 
-    response.status.let {
-        if (it != HttpStatusCode.OK && it != HttpStatusCode.NoContent) {
-            if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
-                delay(2000*(retries+1).toLong())
+    if (checkResponseStatus(response.status, response, retries)) return requestPATCH(url, requestBody, accessToken, retries + 1)
 
-                return requestPOST(url, requestBody, accessToken, retries + 1)
-            } else {
-                throw MagisterException(
-                    response.status, response.bodyAsText(),
-                    "Request failed with status code ${it.value} with message ${response.bodyAsText()}"
-                )
-            }
+    return response
+}
+
+suspend fun requestDELETE(
+    url: Url,
+    requestBody: Any,
+    accessToken: String? = null,
+    retries: Int = 0
+): HttpResponse {
+    val response = client.delete(url.toString()) {
+        contentType(ContentType.Application.Json)
+        setBody(requestBody)
+
+        if (accessToken != null) {
+            bearerAuth(accessToken)
         }
     }
 
+    if (checkResponseStatus(response.status, response, retries)) return requestDELETE(url, requestBody, accessToken, retries + 1)
+
     return response
+}
+
+private suspend fun checkResponseStatus(
+    it: HttpStatusCode,
+    response: HttpResponse,
+    retries: Int
+): Boolean {
+    if (it != HttpStatusCode.OK && it != HttpStatusCode.NoContent) {
+        if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
+            delay(2000 * (retries + 1).toLong())
+
+            return true
+        } else {
+            throw MagisterException(
+                response.status, response.bodyAsText(),
+                "Request failed with status code ${it.value} with message ${response.bodyAsText()}"
+            )
+        }
+    }
+    return false
 }

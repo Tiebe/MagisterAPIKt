@@ -2,6 +2,7 @@
 
 package dev.tiebe.magisterapi.api.messages
 
+import dev.tiebe.magisterapi.api.requestDELETE
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.api.requestPATCH
 import dev.tiebe.magisterapi.response.messages.Attachment
@@ -20,7 +21,7 @@ import kotlinx.serialization.json.decodeFromJsonElement
 
 object MessageFlow {
     private const val allFoldersEndpoint = "api/berichten/mappen/alle"
-    private const val patchEndpoint = "api/berichten/berichten"
+    private const val mainEndpoint = "api/berichten/berichten"
 
     suspend fun getAllFolders(tenantUrl: Url, accessToken: String): List<MessageFolder> {
         val response = requestGET(
@@ -71,27 +72,27 @@ object MessageFlow {
     }
 
     @Serializable
-    internal data class PatchMessageRequest(
+    internal data class PatchMessageRequest<out T : Any>(
         @SerialName("berichten")
-        val messages: List<PatchMessage>
+        val messages: List<PatchMessage<T>>
     ) {
         companion object {
             @Serializable
-            data class PatchMessage(
+            data class PatchMessage<out T: Any>(
                 @SerialName("berichtId")
                 val id: Int,
                 @SerialName("operations")
-                val operations: List<PatchOperation>
+                val operations: List<PatchOperation<T>>
             )
 
             @Serializable
-            data class PatchOperation(
+            data class PatchOperation<out T: Any>(
                 @SerialName("op")
                 val operation: String,
                 @SerialName("path")
                 val path: String,
                 @SerialName("value")
-                val value: Boolean
+                val value: T
             )
         }
     }
@@ -99,7 +100,7 @@ object MessageFlow {
     suspend fun markMessageAsRead(tenantUrl: Url, accessToken: String, messageId: Int, read: Boolean) {
         requestPATCH(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
-                patchEndpoint
+                mainEndpoint
             ).build(), PatchMessageRequest(
                 listOf(
                     PatchMessageRequest.Companion.PatchMessage(
@@ -137,5 +138,38 @@ object MessageFlow {
         )
 
         return response.bodyAsChannel()
+    }
+
+    suspend fun deleteMessage(tenantUrl: Url, accessToken: String, messageId: Int) = moveMessage(tenantUrl, accessToken, messageId, 3)
+    suspend fun restoreMessage(tenantUrl: Url, accessToken: String, messageId: Int) = moveMessage(tenantUrl, accessToken, messageId, 0)
+
+    suspend fun permanentlyDeleteMessage(tenantUrl: Url, accessToken: String, messageId: Int) {
+        requestDELETE(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                mainEndpoint
+            ).build(),
+            listOf("berichtId" to messageId.toString()), accessToken
+        )
+    }
+
+    suspend fun moveMessage(tenantUrl: Url, accessToken: String, messageId: Int, folderId: Int) {
+        requestPATCH(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                mainEndpoint
+            ).build(), PatchMessageRequest(
+                listOf(
+                    PatchMessageRequest.Companion.PatchMessage(
+                        messageId,
+                        listOf(
+                            PatchMessageRequest.Companion.PatchOperation(
+                                "replace",
+                                "/mapId",
+                                folderId
+                            )
+                        )
+                    )
+                )
+            ), accessToken
+        )
     }
 }
