@@ -1,6 +1,7 @@
 package dev.tiebe.magisterapi.api.account
 
 import dev.tiebe.magisterapi.api.requestGET
+import dev.tiebe.magisterapi.response.profileinfo.Contact
 import dev.tiebe.magisterapi.response.profileinfo.ContactInfo
 import dev.tiebe.magisterapi.response.profileinfo.ProfileInfo
 import dev.tiebe.magisterapi.utils.MagisterException
@@ -17,6 +18,7 @@ object ProfileInfoFlow {
     private const val profileInfoEndpoint = "api/account"
     private const val profileImageEndpoint = "api/leerlingen/%s/foto?redirect_type=body" // %s = account id
     private const val contactInfoEndpoint = "api/personen/%s/profiel" // %s = account id
+    private const val contactsEndpoint = "api/contacten/personen"
 
     suspend fun getTenantUrl(accessToken: String): Url {
         val tenantResponse: HttpResponse = requestGET(
@@ -51,6 +53,15 @@ object ProfileInfoFlow {
     suspend fun getContactInfo(tenantUrl: String, accessToken: String, accountId: Int): ContactInfo {
         val response = requestGET(
             URLBuilder(tenantUrl).appendEncodedPathSegments(contactInfoEndpoint.format(accountId)).build(),
+            hashMapOf(),
+            accessToken
+        )
+        return response.body()
+    }
+
+    suspend fun getContacts(tenantUrl: String, accessToken: String, accountId: Int): List<Contact> {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments("$contactsEndpoint?q=**").build(),
             hashMapOf(),
             accessToken
         )
