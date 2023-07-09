@@ -100,17 +100,16 @@ object MessageFlow {
     }
 
     suspend fun markMessageAsRead(tenantUrl: Url, accessToken: String, messageId: Int, read: Boolean) {
-        println("test")
         requestPATCH(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 mainEndpoint
             ).build(), Json.encodeToString<PatchMessageRequest<Boolean>>(
-                PatchMessageRequest<Boolean>(
+                PatchMessageRequest(
                     listOf(
-                        PatchMessageRequest.Companion.PatchMessage<Boolean>(
+                        PatchMessageRequest.Companion.PatchMessage(
                             messageId,
                             listOf(
-                                PatchMessageRequest.Companion.PatchOperation<Boolean>(
+                                PatchMessageRequest.Companion.PatchOperation(
                                     "replace",
                                     "/isGelezen",
                                     read,
@@ -161,9 +160,9 @@ object MessageFlow {
         requestPATCH(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 mainEndpoint
-            ).build(), PatchMessageRequest(
+            ).build(), Json.encodeToString<PatchMessageRequest<Int>>(PatchMessageRequest(
                 listOf(
-                    PatchMessageRequest.Companion.PatchMessage<Int>(
+                    PatchMessageRequest.Companion.PatchMessage(
                         messageId,
                         listOf(
                             PatchMessageRequest.Companion.PatchOperation(
@@ -173,7 +172,7 @@ object MessageFlow {
                             )
                         )
                     )
-                )
+                ))
             ), accessToken
         )
     }
