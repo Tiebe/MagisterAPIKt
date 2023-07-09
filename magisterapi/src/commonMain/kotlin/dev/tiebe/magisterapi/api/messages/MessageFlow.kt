@@ -152,7 +152,7 @@ object MessageFlow {
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 mainEndpoint
             ).build(),
-            listOf("berichtId" to messageId.toString()), accessToken
+            listOf(hashMapOf("berichtId" to messageId.toString())), accessToken
         )
     }
 
