@@ -15,6 +15,8 @@ import io.ktor.http.*
 import io.ktor.utils.io.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationStrategy
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
@@ -102,19 +104,21 @@ object MessageFlow {
         requestPATCH(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 mainEndpoint
-            ).build(), PatchMessageRequest<Boolean>(
-                listOf(
-                    PatchMessageRequest.Companion.PatchMessage<Boolean>(
-                        messageId,
-                        listOf(
-                            PatchMessageRequest.Companion.PatchOperation<Boolean>(
-                                "replace",
-                                "/isGelezen",
-                                read
-                            )
-                        )
-                    )
-                )
+            ).build(), Json.encodeToString<PatchMessageRequest<Boolean>>(
+                PatchMessageRequest<Boolean>(
+                    listOf(
+                        PatchMessageRequest.Companion.PatchMessage<Boolean>(
+                            messageId,
+                            listOf(
+                                PatchMessageRequest.Companion.PatchOperation<Boolean>(
+                                    "replace",
+                                    "/isGelezen",
+                                    read,
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             ), accessToken
         )
     }
