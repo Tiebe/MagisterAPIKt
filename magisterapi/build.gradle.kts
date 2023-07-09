@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE")
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -37,7 +39,7 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "2.3.0"
+        val ktorVersion = "2.0.3"
         val kryptoVersion = "3.4.0"
         val commonMain by getting {
             dependencies {
