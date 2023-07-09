@@ -72,13 +72,13 @@ object MessageFlow {
     }
 
     @Serializable
-    internal data class PatchMessageRequest<out T : Any>(
+    internal data class PatchMessageRequest<T : Any>(
         @SerialName("berichten")
         val messages: List<PatchMessage<T>>
     ) {
         companion object {
             @Serializable
-            data class PatchMessage<out T: Any>(
+            data class PatchMessage<T: Any>(
                 @SerialName("berichtId")
                 val id: Int,
                 @SerialName("operations")
@@ -86,7 +86,7 @@ object MessageFlow {
             )
 
             @Serializable
-            data class PatchOperation<out T: Any>(
+            data class PatchOperation<T: Any>(
                 @SerialName("op")
                 val operation: String,
                 @SerialName("path")
