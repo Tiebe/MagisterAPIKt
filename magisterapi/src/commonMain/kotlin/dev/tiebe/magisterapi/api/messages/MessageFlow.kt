@@ -72,13 +72,13 @@ object MessageFlow {
     }
 
     @Serializable
-    internal data class PatchMessageRequest<T : Any>(
+    internal data class PatchMessageRequest<T>(
         @SerialName("berichten")
         val messages: List<PatchMessage<T>>
     ) {
         companion object {
             @Serializable
-            data class PatchMessage<T: Any>(
+            data class PatchMessage<T>(
                 @SerialName("berichtId")
                 val id: Int,
                 @SerialName("operations")
@@ -86,7 +86,7 @@ object MessageFlow {
             )
 
             @Serializable
-            data class PatchOperation<T: Any>(
+            data class PatchOperation<T>(
                 @SerialName("op")
                 val operation: String,
                 @SerialName("path")
@@ -98,6 +98,7 @@ object MessageFlow {
     }
 
     suspend fun markMessageAsRead(tenantUrl: Url, accessToken: String, messageId: Int, read: Boolean) {
+        println("test")
         requestPATCH(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 mainEndpoint
