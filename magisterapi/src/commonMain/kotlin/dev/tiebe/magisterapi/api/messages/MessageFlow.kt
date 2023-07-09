@@ -102,12 +102,12 @@ object MessageFlow {
         requestPATCH(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 mainEndpoint
-            ).build(), PatchMessageRequest(
+            ).build(), PatchMessageRequest<Boolean>(
                 listOf(
-                    PatchMessageRequest.Companion.PatchMessage(
+                    PatchMessageRequest.Companion.PatchMessage<Boolean>(
                         messageId,
                         listOf(
-                            PatchMessageRequest.Companion.PatchOperation(
+                            PatchMessageRequest.Companion.PatchOperation<Boolean>(
                                 "replace",
                                 "/isGelezen",
                                 read
@@ -159,7 +159,7 @@ object MessageFlow {
                 mainEndpoint
             ).build(), PatchMessageRequest(
                 listOf(
-                    PatchMessageRequest.Companion.PatchMessage(
+                    PatchMessageRequest.Companion.PatchMessage<Int>(
                         messageId,
                         listOf(
                             PatchMessageRequest.Companion.PatchOperation(
