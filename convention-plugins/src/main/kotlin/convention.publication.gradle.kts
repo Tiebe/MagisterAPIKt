@@ -94,9 +94,6 @@ publishing {
         }
     }
 
-    publications.register<MavenPublication>("gpr") {
-        from(components["kotlin"])
-    }
 }
 
 // Signing artifacts. Signing.* extra properties values will be used

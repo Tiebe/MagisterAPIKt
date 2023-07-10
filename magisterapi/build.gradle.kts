@@ -4,11 +4,13 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    kotlin("plugin.serialization") version "1.7.10"
+    kotlin("plugin.serialization") version "1.8.0"
     id("convention.publication")
 }
 
-version = "1.1.10-alpha15"
+val build_version: String by project
+
+version = build_version
 group = "dev.tiebe"
 
 kotlin {
