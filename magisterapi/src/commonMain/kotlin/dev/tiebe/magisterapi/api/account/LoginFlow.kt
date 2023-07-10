@@ -38,8 +38,22 @@ object LoginFlow {
         return getToken(body)
     }
 
-    private val authorizationEndpoint: Url = Url("https://accounts.magister.net/connect/authorize")
-    private val tokenEndpoint: Url = Url("https://accounts.magister.net/connect/token")
+    private var mainEndpoint: Url = Url("https://accounts.magister.net")
+
+    fun setMainEndpoint(endpoint: String) {
+        mainEndpoint = Url(endpoint)
+    }
+
+    fun setAuthorizationEndpoint(endpoint: String) {
+        authorizationEndpoint = Url(endpoint)
+    }
+
+    fun setTokenEndpoint(endpoint: String) {
+        tokenEndpoint = Url(endpoint)
+    }
+
+    private var authorizationEndpoint: Url = URLBuilder(mainEndpoint).appendEncodedPathSegments("connect/authorize").build()
+    private var tokenEndpoint: Url = URLBuilder(mainEndpoint).appendEncodedPathSegments("connect/token").build()
     const val clientId = "M6LOAPP"
     const val scope = "openid profile email offline_access"
     const val responseType = "id_token code"
@@ -51,7 +65,7 @@ object LoginFlow {
             "grant_type" to "refresh_token",
             "refresh_token" to refreshToken,
             "client_id" to clientId
-            )
+        )
         return getToken(body)
     }
 

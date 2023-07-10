@@ -101,11 +101,13 @@ publishing {
 
 // Signing artifacts. Signing.* extra properties values will be used
 
-signing {
-    useInMemoryPgpKeys(
-        getExtraString("signing.keyId"),
-        getExtraString("signing.key"),
-        getExtraString("signing.password")
-    )
-    sign(publishing.publications)
+if (getExtraString("signing.keyId") != null) {
+    signing {
+        useInMemoryPgpKeys(
+            getExtraString("signing.keyId"),
+            getExtraString("signing.key"),
+            getExtraString("signing.password")
+        )
+        sign(publishing.publications)
+    }
 }
