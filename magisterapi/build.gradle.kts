@@ -25,6 +25,7 @@ kotlin {
         }
         publishLibraryVariants("release")
         publishLibraryVariantsGroupedByFlavor = true
+
     }
     iosX64()
     iosArm64()
@@ -103,5 +104,13 @@ kotlin {
 android {
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    publishing {
+        multipleVariants {
+            withSourcesJar()
+            withJavadocJar()
+            allVariants()
+        }
+    }
 }
 

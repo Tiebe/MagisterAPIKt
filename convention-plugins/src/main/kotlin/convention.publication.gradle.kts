@@ -41,8 +41,6 @@ val javadocJar by tasks.registering(Jar::class) {
 fun getExtraString(name: String) = ext[name]?.toString()
 
 
-
-
 publishing {
     // Configure maven central repository
     repositories {
@@ -68,8 +66,8 @@ publishing {
     // Configure all publications
     publications.withType<MavenPublication> {
 
-        // Stub javadoc.jar artifact
-        //artifact(javadocJar.get())
+        if (getExtraString("signing.keyId") != null)
+            artifact(javadocJar.get())
 
         // Provide artifacts information requited by Maven Central
         pom {
