@@ -19,10 +19,15 @@ object ProfileInfoFlow {
     private const val profileImageEndpoint = "api/leerlingen/%s/foto?redirect_type=body" // %s = account id
     private const val contactInfoEndpoint = "api/personen/%s/profiel" // %s = account id
     private const val contactsEndpoint = "api/contacten/personen"
+    private var wellKnown = "https://magister.net/.well-known/host-meta.json?rel=magister-api"
+
+    fun setWellKnown(wellKnown: String) {
+        this.wellKnown = wellKnown
+    }
 
     suspend fun getTenantUrl(accessToken: String): Url {
         val tenantResponse: HttpResponse = requestGET(
-            Url("https://magister.net/.well-known/host-meta.json?rel=magister-api"),
+            Url(wellKnown),
             hashMapOf(),
             accessToken
         )
