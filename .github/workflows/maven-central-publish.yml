@@ -28,6 +28,20 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
         cache: gradle
+        
+    - name: Cache node modules
+      id: cache-kotlin
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-kotlin
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.konan
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/build.gradle.kts') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
 
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
