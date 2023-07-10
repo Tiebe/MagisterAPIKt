@@ -31,7 +31,7 @@ jobs:
         settings-path: ${{ github.workspace }} # location for the settings.xml file
         cache: gradle
         
-    - name: Cache node modules
+    - name: Cache Kotlin
       id: cache-kotlin
       uses: actions/cache@v3
       env:
@@ -50,7 +50,7 @@ jobs:
     - name: Publish to GitHub Packages
       uses: gradle/gradle-build-action@v2.6.0
       with:
-        arguments: publishAllPublicationsToGitHubPackagesRepository --no-daemon
+        arguments: publishAllPublicationsToGitHubPackagesRepository --no-daemon --scan
       env:
         USERNAME: ${{ secrets.USERNAME }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -29,7 +29,7 @@ jobs:
         settings-path: ${{ github.workspace }} # location for the settings.xml file
         cache: gradle
         
-    - name: Cache node modules
+    - name: Cache Kotlin
       id: cache-kotlin
       uses: actions/cache@v3
       env:
@@ -45,10 +45,10 @@ jobs:
 
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
-    - name: Publish to GitHub Packages
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+    - name: Publish to Maven Central
+      uses: gradle/gradle-build-action@v2.6.0
       with:
-        arguments: publishAllPublicationsToSonatypeRepository
+        arguments: publishAllPublicationsToSonatypeRepository --no-daemon --scan
       env:
         SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
         SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
