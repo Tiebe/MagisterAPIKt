@@ -75,6 +75,8 @@ object LoginFlow {
         val response: HttpResponse = requestPOST(tokenEndpoint, body)
         val tokens: TokenResponse = response.body()
 
+        println(tokens)
+
         tokens.createdAt = Clock.System.now().epochSeconds
 
         return tokens
