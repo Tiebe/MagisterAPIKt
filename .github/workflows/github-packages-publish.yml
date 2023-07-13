@@ -50,7 +50,7 @@ jobs:
     - name: Publish to GitHub Packages
       uses: gradle/gradle-build-action@v2.6.0
       with:
-        arguments: publishAllPublicationsToGitHubPackagesRepository --no-daemon --scan --configuration-cache --build-cache --parallel
+        arguments: publishAllPublicationsToGitHubPackagesRepository --no-daemon --scan --build-cache --parallel
       env:
         USERNAME: ${{ secrets.USERNAME }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
