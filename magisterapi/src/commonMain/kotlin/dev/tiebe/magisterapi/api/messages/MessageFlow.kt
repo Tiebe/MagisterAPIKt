@@ -2,6 +2,8 @@
 
 package dev.tiebe.magisterapi.api.messages
 
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import dev.tiebe.magisterapi.api.requestDELETE
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.api.requestPATCH

@@ -1,9 +1,11 @@
 package dev.tiebe.magisterapi.response.general.year.grades
 
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
+@Serializable @Parcelize
 data class Subject (
     @SerialName("Id")
     var id: Int,
@@ -16,4 +18,4 @@ data class Subject (
 
     @SerialName("Volgnr")
     var index: Int
-)
+): Parcelable

@@ -1,10 +1,12 @@
 package dev.tiebe.magisterapi.response.messages
 
 
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
+@Serializable @Parcelize
 data class Attachment(
     @SerialName("aangemaaktOp")
     val createdOn: String,
@@ -22,9 +24,9 @@ data class Attachment(
     val name: String,
     @SerialName("status")
     val status: String
-) {
+): Parcelable {
     companion object {
-        @Serializable
+        @Serializable @Parcelize
         data class Links(
             @SerialName("self")
             val self: Link,
@@ -32,12 +34,12 @@ data class Attachment(
             val downloadLink: Link,
             @SerialName("thumb")
             val thumbnail: Link? = null
-        )
+        ): Parcelable
 
-        @Serializable
+        @Serializable @Parcelize
         data class Link(
             @SerialName("href")
             val href: String
-        )
+        ): Parcelable
     }
 }

@@ -1,12 +1,15 @@
 package dev.tiebe.magisterapi.response.general.year
 
+import com.arkivanov.essenty.parcelable.IgnoredOnParcel
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 import dev.tiebe.magisterapi.response.general.year.grades.Study
 
 
-@Serializable
+@Serializable @Parcelize
 data class Year(
     @SerialName("id")
     var id: Int,
@@ -35,6 +38,6 @@ data class Year(
     @SerialName("isHoofdAanmelding")
     var mainRegistration: Boolean,
 
-    @SerialName("links")
-    var link: JsonObject
-)
+    @SerialName("links") @IgnoredOnParcel
+    var link: JsonObject? = null
+): Parcelable

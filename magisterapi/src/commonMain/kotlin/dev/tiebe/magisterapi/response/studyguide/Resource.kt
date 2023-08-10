@@ -1,11 +1,14 @@
 package dev.tiebe.magisterapi.response.studyguide
 
 
+import com.arkivanov.essenty.parcelable.IgnoredOnParcel
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
-@Serializable
+@Serializable @Parcelize
 data class Resource(
     @SerialName("BronSoort")
     val resourceType: Int,
@@ -15,8 +18,8 @@ data class Resource(
     val fileBlobId: Int,
     @SerialName("GemaaktOp")
     val createdOn: String?,
-    @SerialName("GeplaatstDoor")
-    val createdBy: JsonObject?,
+    @SerialName("GeplaatstDoor") @IgnoredOnParcel
+    val createdBy: JsonObject? = null,
     @SerialName("GewijzigdOp")
     val modifiedOn: String?,
     @SerialName("Grootte")
@@ -39,20 +42,20 @@ data class Resource(
     val type: Int,
     @SerialName("UniqueId")
     val uniqueId: String,
-    @SerialName("Uri")
-    val uri: JsonObject?,
+    @SerialName("Uri") @IgnoredOnParcel
+    val uri: JsonObject? = null,
     @SerialName("Volgnr")
     val index: Int,
     @SerialName("Zichtbaar")
     val visible: String? = null
-) {
+): Parcelable {
     companion object {
-        @Serializable
+        @Serializable @Parcelize
         data class Link(
             @SerialName("Href")
             val href: String,
             @SerialName("Rel")
             val rel: String
-        )
+        ): Parcelable
     }
 }

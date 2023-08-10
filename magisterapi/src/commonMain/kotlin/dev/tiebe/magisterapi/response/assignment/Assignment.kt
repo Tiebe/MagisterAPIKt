@@ -1,10 +1,12 @@
 package dev.tiebe.magisterapi.response.assignment
 
 
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
+@Serializable @Parcelize
 data class Assignment(
     @SerialName("Afgesloten")
     val closed: Boolean,
@@ -42,9 +44,9 @@ data class Assignment(
     val navigationItemsVersion: List<VersieNavigatieItem>,
 
     val hasExtraInfo: Boolean = false
-) {
+): Parcelable {
     companion object {
-        @Serializable
+        @Serializable @Parcelize
         data class Attachment(
             @SerialName("BronSoort")
             val resourceType: Int,
@@ -66,17 +68,17 @@ data class Assignment(
             val uniqueId: String,
             @SerialName("Url")
             val url: String?
-        )
+        ): Parcelable
 
-        @Serializable
+        @Serializable @Parcelize
         data class Link(
             @SerialName("Href")
             val href: String,
             @SerialName("Rel")
             val rel: String
-        )
+        ): Parcelable
 
-        @Serializable
+        @Serializable @Parcelize
         data class Teacher(
             @SerialName("Docentcode")
             val teacherCode: String,
@@ -84,9 +86,9 @@ data class Assignment(
             val id: Int,
             @SerialName("Naam")
             val name: String
-        )
+        ): Parcelable
 
-        @Serializable
+        @Serializable @Parcelize
         data class VersieNavigatieItem(
             @SerialName("Id")
             val id: Int,
@@ -94,6 +96,6 @@ data class Assignment(
             val links: List<Link>,
             @SerialName("Omschrijving")
             val description: String
-        )
+        ): Parcelable
     }
 }

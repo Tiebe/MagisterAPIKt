@@ -1,10 +1,12 @@
 package dev.tiebe.magisterapi.response.messages
 
 
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
+@Serializable @Parcelize
 data class MessageFolder(
     @SerialName("aantalOngelezen")
     val unreadCount: Int,
@@ -16,9 +18,9 @@ data class MessageFolder(
     val links: Links,
     @SerialName("naam")
     val name: String
-) {
+): Parcelable {
     companion object {
-        @Serializable
+        @Serializable @Parcelize
         data class Links(
             @SerialName("self")
             val selfLink: Link,
@@ -28,12 +30,12 @@ data class MessageFolder(
             val subFolderLink: Link? = null,
             @SerialName("berichten")
             val messagesLink: Link
-        )
+        ): Parcelable
 
-        @Serializable
+        @Serializable @Parcelize
         data class Link(
             @SerialName("href")
             val href: String
-        )
+        ): Parcelable
     }
 }

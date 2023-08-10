@@ -1,5 +1,7 @@
 package dev.tiebe.magisterapi.api.account
 
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import com.benasher44.uuid.uuid4
 import io.ktor.client.call.*
 import io.ktor.client.statement.*
@@ -12,8 +14,8 @@ import dev.tiebe.magisterapi.utils.LoginUtility.generateCodeChallenge
 import dev.tiebe.magisterapi.utils.LoginUtility.generateCodeVerifier
 
 object LoginFlow {
-    @Serializable
-    class AuthURL(val url: String, val codeVerifier: String)
+    @Serializable @Parcelize
+    class AuthURL(val url: String, val codeVerifier: String): Parcelable
 
     fun createAuthURL(): AuthURL {
         val codeVerifier: String = generateCodeVerifier()

@@ -1,6 +1,9 @@
 @file:Suppress("unused")
 
 package dev.tiebe.magisterapi.response.general.year.agenda
+import com.arkivanov.essenty.parcelable.IgnoredOnParcel
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.Serializable
 
 import kotlinx.serialization.SerialName
@@ -9,7 +12,7 @@ import dev.tiebe.magisterapi.response.general.year.Classroom
 import dev.tiebe.magisterapi.response.general.year.Subject
 
 
-@Serializable
+@Serializable @Parcelize
 data class AgendaItem(
     @SerialName("Id")
     val id: Int,
@@ -49,23 +52,23 @@ data class AgendaItem(
     val finished: Boolean,
     @SerialName("HerhaalStatus")
     val repeatingState: Int,
-    @SerialName("Herhaling")
-    val repeating: JsonObject?,
+    @SerialName("Herhaling") @IgnoredOnParcel
+    val repeating: JsonObject? = null,
     @SerialName("Vakken")
     val subjects: List<Subject>,
     @SerialName("Docenten")
     val teachers: List<Teacher>,
     @SerialName("Lokalen")
     val classrooms: List<Classroom>,
-    @SerialName("Groepen")
-    val groups: JsonObject?,
+    @SerialName("Groepen") @IgnoredOnParcel
+    val groups: JsonObject? = null,
     @SerialName("OpdrachtId")
     val assignmentId: Int,
     @SerialName("HeeftBijlagen")
     val hasAttachments: Boolean,
-    @SerialName("Bijlagen")
-    val attachments: JsonObject?
-) {
+    @SerialName("Bijlagen") @IgnoredOnParcel
+    val attachments: JsonObject? = null
+): Parcelable {
     fun getInfoType(): InfoType {
         return InfoType.values().find { it.infoType == infoType } ?: InfoType.NONE
     }
@@ -79,15 +82,15 @@ data class AgendaItem(
     }
 
     companion object {
-        @Serializable
+        @Serializable @Parcelize
         data class Link(
             @SerialName("Rel")
             val rel: String,
             @SerialName("Href")
             val href: String
-        )
+        ): Parcelable
 
-        @Serializable
+        @Serializable @Parcelize
         data class Repeating(
             @SerialName("BeginDatum")
             val startingDate: String,
@@ -97,13 +100,13 @@ data class AgendaItem(
             val numberOfTimes: Int,
             @SerialName("Dagelijks")
             val daily: Daily
-        )
+        ): Parcelable
 
-        @Serializable
+        @Serializable @Parcelize
         data class Daily(
             @SerialName("Interval")
             val interval: Int
-        )
+        ): Parcelable
 
         enum class Type(val type: Int) {
             NONE(0), // None
