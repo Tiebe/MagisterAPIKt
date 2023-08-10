@@ -1,11 +1,9 @@
 package dev.tiebe.magisterapi.response.general.year.grades
 
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable @Parcelize
+@Serializable
 data class GradeInfo(
     @SerialName("KolomSoortKolom")
     var columnSortIndex: Int,
@@ -30,4 +28,4 @@ data class GradeInfo(
 
     @SerialName("WerkInformatieOmschrijving")
     var workInformationDescription: String?
-): Parcelable
+)

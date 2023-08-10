@@ -1,12 +1,10 @@
 package dev.tiebe.magisterapi.response.messages
 
 
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable @Parcelize
+@Serializable
 data class Message(
     @SerialName("afzender")
     val sender: Sender? = null,
@@ -32,9 +30,9 @@ data class Message(
     val subject: String,
     @SerialName("verzondenOp")
     val sentOn: String
-): Parcelable {
+) {
     companion object {
-        @Serializable @Parcelize
+        @Serializable
         data class Sender(
             @SerialName("id")
             val id: Int,
@@ -42,17 +40,17 @@ data class Message(
             val links: Links,
             @SerialName("naam")
             val name: String
-        ): Parcelable {
+        ) {
             companion object {
-                @Serializable @Parcelize
+                @Serializable
                 data class Links(
                     @SerialName("self")
                     val self: Link? = null
-                ): Parcelable
+                )
             }
         }
 
-        @Serializable @Parcelize
+        @Serializable
         data class Receiver(
             @SerialName("id")
             val id: Int,
@@ -64,9 +62,9 @@ data class Message(
             val mailGroup: String?,
             @SerialName("weergavenaam")
             val name: String
-        ): Parcelable
+        )
 
-        @Serializable @Parcelize
+        @Serializable
         data class Links(
             @SerialName("bijlagen")
             val attachments: Link? = null,
@@ -74,13 +72,13 @@ data class Message(
             val folder: Link? = null,
             @SerialName("self")
             val self: Link? = null
-        ): Parcelable
+        )
 
-        @Serializable @Parcelize
+        @Serializable
         data class Link(
             @SerialName("href")
             val href: String
-        ): Parcelable
+        )
 
     }
 }

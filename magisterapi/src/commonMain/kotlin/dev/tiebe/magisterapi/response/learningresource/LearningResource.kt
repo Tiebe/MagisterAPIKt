@@ -1,12 +1,10 @@
 package dev.tiebe.magisterapi.response.learningresource
 
 
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable @Parcelize
+@Serializable
 data class LearningResource(
     @SerialName("EAN")
     val eAN: String,
@@ -30,9 +28,9 @@ data class LearningResource(
     val publisher: String,
     @SerialName("Vak")
     val subject: Subject
-): Parcelable {
+) {
     companion object {
-        @Serializable @Parcelize
+        @Serializable
         data class Subject(
             @SerialName("Afkorting")
             val abbreviation: String,
@@ -46,14 +44,14 @@ data class LearningResource(
             val description: String,
             @SerialName("Volgnr")
             val index: Int
-        ): Parcelable
+        )
 
-        @Serializable @Parcelize
+        @Serializable
         data class Link(
             @SerialName("Href")
             val href: String,
             @SerialName("Rel")
             val rel: String
-        ): Parcelable
+        )
     }
 }

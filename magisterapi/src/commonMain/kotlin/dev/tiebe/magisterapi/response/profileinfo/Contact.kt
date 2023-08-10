@@ -1,12 +1,10 @@
 package dev.tiebe.magisterapi.response.profileinfo
 
 
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable @Parcelize
+@Serializable
 data class Contact(
     @SerialName("id")
     val id: Int,
@@ -24,16 +22,16 @@ data class Contact(
     val type: String,
     @SerialName("links")
     val links: Links
-): Parcelable {
-    @Serializable @Parcelize
+) {
+    @Serializable
     data class Links(
         @SerialName("self")
         val self: Self
-    ): Parcelable {
-        @Serializable @Parcelize
+    ) {
+        @Serializable
         data class Self(
             @SerialName("href")
             val href: String
-        ): Parcelable
+        )
     }
 }

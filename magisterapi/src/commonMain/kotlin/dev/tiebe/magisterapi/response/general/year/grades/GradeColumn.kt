@@ -1,7 +1,5 @@
 package dev.tiebe.magisterapi.response.general.year.grades
 
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -11,7 +9,7 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-@Serializable @Parcelize
+@Serializable
 data class GradeColumn (
     @SerialName("Id")
     var id: Int,
@@ -46,9 +44,9 @@ data class GradeColumn (
     @SerialName("IsPTAKolom")
     var isPTAColumn: Boolean,
 
-    ): Parcelable {
-    @Serializable(with = TypeSerializer::class) @Parcelize
-    enum class Type(val type: Int): Parcelable {
+    ) {
+    @Serializable(with = TypeSerializer::class)
+    enum class Type(val type: Int) {
         Unknown(0),
         Grade(1),
         Average(2),
@@ -71,7 +69,6 @@ data class GradeColumn (
             private val map = values().associateBy(Type::type)
             fun fromInt(type: Int) = map[type]
         }
-
     }
 
     object TypeSerializer : KSerializer<Type> {

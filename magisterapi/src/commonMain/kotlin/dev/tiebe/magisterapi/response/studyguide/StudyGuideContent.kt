@@ -1,14 +1,11 @@
 package dev.tiebe.magisterapi.response.studyguide
 
 
-import com.arkivanov.essenty.parcelable.IgnoredOnParcel
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
-@Serializable @Parcelize
+@Serializable
 data class StudyGuideContent(
     @SerialName("Id")
     val id: Int,
@@ -16,8 +13,8 @@ data class StudyGuideContent(
     val archived: Boolean,
     @SerialName("IsZichtbaar")
     val visible: Boolean,
-    @SerialName("Links") @IgnoredOnParcel
-    val links: List<JsonObject>? = null,
+    @SerialName("Links")
+    val links: List<JsonObject>?,
     @SerialName("Onderdelen")
     val contents: Contents,
     @SerialName("Titel")
@@ -28,19 +25,19 @@ data class StudyGuideContent(
     val subjectCodes: List<String>,
     @SerialName("Van")
     val startsOn: String
-): Parcelable {
+) {
     companion object {
-        @Serializable @Parcelize
+        @Serializable
         data class Contents(
             @SerialName("Items")
             val items: List<Item>,
-            @SerialName("Links") @IgnoredOnParcel
-            val links: List<JsonObject>? = null,
+            @SerialName("Links")
+            val links: List<JsonObject>,
             @SerialName("TotalCount")
             val totalCount: Int
-        ): Parcelable
+        )
 
-        @Serializable @Parcelize
+        @Serializable
         data class Item(
             @SerialName("Bronnen")
             val resources: List<Resource>,
@@ -62,15 +59,15 @@ data class StudyGuideContent(
             val startsOn: String?,
             @SerialName("Volgnummer")
             val index: Int
-        ): Parcelable
+        )
 
-        @Serializable @Parcelize
+        @Serializable
         data class Link(
             @SerialName("Href")
             val href: String,
             @SerialName("Rel")
             val rel: String
-        ): Parcelable
+        )
     }
 
 }

@@ -1,11 +1,9 @@
 package dev.tiebe.magisterapi.response.assignment
 
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable @Parcelize
+@Serializable
 data class Attachment(
     @SerialName("BronSoort")
     val attachmentType: Int,
@@ -27,12 +25,12 @@ data class Attachment(
     val uniqueId: String,
     @SerialName("Url")
     val url: String?
-): Parcelable {
-    @Serializable @Parcelize
+) {
+    @Serializable
     data class Link(
         @SerialName("Href")
         val href: String,
         @SerialName("Rel")
         val rel: String
-    ): Parcelable
+    )
 }

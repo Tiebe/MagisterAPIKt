@@ -1,11 +1,9 @@
 package dev.tiebe.magisterapi.response
 
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable @Parcelize
+@Serializable
 data class TokenResponse(
     @SerialName("access_token")
     val accessToken: String,
@@ -19,7 +17,7 @@ data class TokenResponse(
     val expiresIn: Long,
     @SerialName("scope")
     val scope: String
-    ): Parcelable {
+    ) {
     var createdAt: Long = 0
     val expiresAt: Long
         get() = createdAt + expiresIn

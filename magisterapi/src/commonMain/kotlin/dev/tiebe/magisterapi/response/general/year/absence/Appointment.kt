@@ -1,15 +1,12 @@
 package dev.tiebe.magisterapi.response.general.year.absence
 
-import com.arkivanov.essenty.parcelable.IgnoredOnParcel
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 import dev.tiebe.magisterapi.response.general.year.Classroom
 import dev.tiebe.magisterapi.response.general.year.Subject
 
-@Serializable @Parcelize
+@Serializable
 data class Appointment(
     @SerialName("Aantekening")
     val note: String?,
@@ -43,8 +40,8 @@ data class Appointment(
     val periodUntil: Int?,
     @SerialName("LesuurVan")
     val periodFrom: Int?,
-    @SerialName("Links") @IgnoredOnParcel
-    val links: JsonObject? = null,
+    @SerialName("Links")
+    val links: JsonObject?,
     @SerialName("Lokalen")
     val classrooms: List<Classroom>,
     @SerialName("Lokatie")
@@ -65,4 +62,4 @@ data class Appointment(
     val subjects: List<Subject>?,
     @SerialName("WeergaveType")
     val displayType: Int
-): Parcelable
+)

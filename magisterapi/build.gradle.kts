@@ -6,9 +6,6 @@ plugins {
     id("com.android.library")
     kotlin("plugin.serialization") version "1.8.0"
     id("convention.publication")
-    id("kotlin-parcelize")
-    id("kotlin-kapt")
-    id("com.arkivanov.parcelize.darwin")
 }
 
 val build_version: String by project
@@ -19,12 +16,12 @@ group = "dev.tiebe"
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "17"
+            kotlinOptions.jvmTarget = "11"
         }
     }
     android {
         compilations.all {
-            kotlinOptions.jvmTarget = "17"
+            kotlinOptions.jvmTarget = "11"
         }
         publishLibraryVariants("release")
         publishLibraryVariantsGroupedByFlavor = true
@@ -50,7 +47,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
-
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
@@ -59,8 +55,6 @@ kotlin {
                 implementation("com.benasher44:uuid:0.4.1")
                 implementation("com.soywiz.korlibs.krypto:krypto:$kryptoVersion")
                 implementation("io.matthewnelson.kotlin-components:encoding-base64:1.1.3")
-
-                implementation("com.arkivanov.essenty:parcelable:1.1.0")
             }
         }
         val korioVersion = "3.2.0"
@@ -121,8 +115,8 @@ android {
 
     android {
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
+            sourceCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_11
         }
     }
 

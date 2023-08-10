@@ -1,11 +1,9 @@
 package dev.tiebe.magisterapi.response.general.year.grades
 
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable @Parcelize
+@Serializable
 data class Grade(
     @SerialName("CijferId")
     var id: Int,
@@ -53,8 +51,8 @@ data class Grade(
     var subjectExemption2: Boolean,
     var yearId: Int = -1
 
-): Parcelable {
-    @Serializable @Parcelize
+) {
+    @Serializable
     data class GradeSemester(
         @SerialName("Id")
         var id: Int,
@@ -64,5 +62,5 @@ data class Grade(
 
         @SerialName("VolgNummer")
         var index: Int
-    ): Parcelable
+    )
 }
