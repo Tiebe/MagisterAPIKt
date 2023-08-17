@@ -9,10 +9,7 @@ import dev.tiebe.magisterapi.utils.format
 import io.ktor.client.call.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.*
 
 object ProfileInfoFlow {
     private const val profileInfoEndpoint = "api/account"
@@ -61,6 +58,7 @@ object ProfileInfoFlow {
             hashMapOf(),
             accessToken
         )
+
         return response.body()
     }
 
@@ -70,6 +68,7 @@ object ProfileInfoFlow {
             hashMapOf(),
             accessToken
         )
-        return response.body()
+
+        return Json.decodeFromJsonElement(response.body<JsonElement>().jsonObject["items"]?.jsonArray!!)
     }
 }

@@ -1,37 +1,40 @@
 package dev.tiebe.magisterapi.response.profileinfo
 
 
+import dev.tiebe.magisterapi.scripts.Links
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Contact(
     @SerialName("id")
-    val id: Int,
+    val id: Int = 0,
     @SerialName("voorletters")
-    val voorletters: String,
-    @SerialName("roepnaam")
-    val roepnaam: String? = null,
+    val voorletters: String = "",
     @SerialName("tussenvoegsel")
-    val tussenvoegsel: String? = null,
+    val tussenvoegsel: String? = "",
     @SerialName("achternaam")
-    val lastName: String,
+    val achternaam: String = "",
     @SerialName("code")
-    val teacherAbbreviation: String? = null,
+    val code: String? = "",
     @SerialName("type")
-    val type: String,
+    val type: String = "",
     @SerialName("links")
-    val links: Links
+    val links: Links = Links(),
+    @SerialName("roepnaam")
+    val roepnaam: String? = "",
+    @SerialName("klas")
+    val klas: String? = ""
 ) {
     @Serializable
     data class Links(
         @SerialName("self")
-        val self: Self
+        val self: Self = Self()
     ) {
         @Serializable
         data class Self(
             @SerialName("href")
-            val href: String
+            val href: String = ""
         )
     }
 }
