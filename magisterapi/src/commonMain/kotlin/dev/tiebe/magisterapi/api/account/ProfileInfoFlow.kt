@@ -62,9 +62,9 @@ object ProfileInfoFlow {
         return response.body()
     }
 
-    suspend fun getContacts(tenantUrl: String, accessToken: String, accountId: Int): List<Contact> {
+    suspend fun getContacts(tenantUrl: String, accessToken: String, searchTerm: String = "**"): List<Contact> {
         val response = requestGET(
-            URLBuilder(tenantUrl).appendEncodedPathSegments("$contactsEndpoint?q=**").build(),
+            URLBuilder(tenantUrl).appendEncodedPathSegments("$contactsEndpoint?q=$searchTerm").build(),
             hashMapOf(),
             accessToken
         )

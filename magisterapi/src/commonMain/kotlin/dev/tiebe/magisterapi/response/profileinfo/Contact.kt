@@ -1,7 +1,6 @@
 package dev.tiebe.magisterapi.response.profileinfo
 
 
-import dev.tiebe.magisterapi.scripts.Links
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
