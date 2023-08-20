@@ -66,8 +66,8 @@ publishing {
     // Configure all publications
     publications.withType<MavenPublication> {
 
-        if (getExtraString("signing.keyId") != null)
-            artifact(javadocJar.get())
+        //if (getExtraString("signing.keyId") != null)
+        artifact(javadocJar.get())
 
         // Provide artifacts information requited by Maven Central
         pom {
@@ -93,6 +93,10 @@ publishing {
             }
 
         }
+    }
+
+    publications.register<MavenPublication>("gpr") {
+        from(components["kotlin"])
     }
 
 }
