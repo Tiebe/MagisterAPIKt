@@ -71,4 +71,14 @@ object ProfileInfoFlow {
 
         return Json.decodeFromJsonElement(response.body<JsonElement>().jsonObject["items"]?.jsonArray!!)
     }
+
+    suspend fun getContact(tenantUrl: String, accessToken: String, contactUrl: String): Contact {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(contactUrl).build(),
+            hashMapOf(),
+            accessToken
+        )
+
+        return response.body()
+    }
 }

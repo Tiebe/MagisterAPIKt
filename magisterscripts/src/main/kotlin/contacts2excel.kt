@@ -21,7 +21,7 @@ suspend fun main() {
     val tenantUrl = ProfileInfoFlow.getTenantUrl(token)
 
     val contacts = ProfileInfoFlow.getContacts(tenantUrl.toString(), token)
-    println(contacts.first())
+    println(contacts.first { it.roepnaam != "" })
 
     val classes = contacts.filter { it.type == "leerling" }.map { it.klas }.distinct()
 

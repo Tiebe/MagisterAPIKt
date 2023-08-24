@@ -11,19 +11,19 @@ data class Contact(
     @SerialName("voorletters")
     val voorletters: String = "",
     @SerialName("tussenvoegsel")
-    val tussenvoegsel: String? = "",
+    val tussenvoegsel: String? = null,
     @SerialName("achternaam")
     val achternaam: String = "",
     @SerialName("code")
-    val code: String? = "",
+    val code: String? = null,
     @SerialName("type")
     val type: String = "",
     @SerialName("links")
     val links: Links = Links(),
     @SerialName("roepnaam")
-    val roepnaam: String? = "",
+    val roepnaam: String? = null,
     @SerialName("klas")
-    val klas: String? = ""
+    val klas: String? = null
 ) {
     @Serializable
     data class Links(
