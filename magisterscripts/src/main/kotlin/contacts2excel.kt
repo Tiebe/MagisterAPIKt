@@ -14,7 +14,10 @@ suspend fun main() {
         println("Open the following URL in your browser: ${loginFLow.url}")
         print("Input code: ")
         val code = readln()
-        LoginFlow.exchangeTokens(code, loginFLow.codeVerifier).accessToken
+        val tokens = LoginFlow.exchangeTokens(code, loginFLow.codeVerifier)
+        println(tokens)
+
+        tokens.accessToken
     } else read
 
 

@@ -16,9 +16,10 @@ data class TokenResponse(
     @SerialName("expires_in")
     val expiresIn: Long,
     @SerialName("scope")
-    val scope: String
-    ) {
+    val scope: String,
     var createdAt: Long = 0
+    ) {
+
     val expiresAt: Long
         get() = createdAt + expiresIn
 }

@@ -27,4 +27,7 @@ object AbsenceFlow {
         return absences ?: emptyList()
     }
 
+    suspend fun getAbsences(tenantUrl: String, accessToken: String, accountId: Int, start: String, end: String): List<Absence> =
+        getAbsences(Url(tenantUrl), accessToken, accountId, start, end)
+
 }

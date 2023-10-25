@@ -4,6 +4,7 @@ import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.response.profileinfo.Contact
 import dev.tiebe.magisterapi.response.profileinfo.ContactInfo
 import dev.tiebe.magisterapi.response.profileinfo.ProfileInfo
+import dev.tiebe.magisterapi.response.profileinfo.StudyInfo
 import dev.tiebe.magisterapi.utils.MagisterException
 import dev.tiebe.magisterapi.utils.format
 import io.ktor.client.call.*
@@ -16,6 +17,7 @@ object ProfileInfoFlow {
     private const val profileImageEndpoint = "api/leerlingen/%s/foto?redirect_type=body" // %s = account id
     private const val contactInfoEndpoint = "api/personen/%s/profiel" // %s = account id
     private const val contactsEndpoint = "api/contacten/personen"
+    private const val studyInfoEndpoint = "api/personen/%s/opleidinggegevensprofiel" // %s = account id
     private var wellKnown = "https://magister.net/.well-known/host-meta.json?rel=magister-api"
 
     fun setWellKnown(wellKnown: String) {
@@ -33,6 +35,8 @@ object ProfileInfoFlow {
                 "Tenant not found")
         ).protocolWithAuthority)
     }
+
+    suspend fun getTenantUrlString(accessToken: String) = getTenantUrl(accessToken).toString()
 
     suspend fun getProfileInfo(tenantUrl: String, accessToken: String): ProfileInfo {
         val response = requestGET(
@@ -75,6 +79,16 @@ object ProfileInfoFlow {
     suspend fun getContact(tenantUrl: String, accessToken: String, contactUrl: String): Contact {
         val response = requestGET(
             URLBuilder(tenantUrl).appendEncodedPathSegments(contactUrl).build(),
+            hashMapOf(),
+            accessToken
+        )
+
+        return response.body()
+    }
+
+    suspend fun getStudyInfo(tenantUrl: String, accessToken: String, accountId: Int): StudyInfo {
+        val response = requestGET(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(studyInfoEndpoint.format(accountId)).build(),
             hashMapOf(),
             accessToken
         )

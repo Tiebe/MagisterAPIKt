@@ -22,6 +22,8 @@ private val client = HttpClient {
     }
 }
 
+private val noRedirectClient = client.config { followRedirects = false }
+
 suspend fun requestPOST(
     url: Url,
     body: HashMap<String, String> = hashMapOf(),
@@ -143,8 +145,8 @@ private suspend fun checkResponseStatus(
     response: HttpResponse,
     retries: Int
 ): Boolean {
-    if (it != HttpStatusCode.OK && it != HttpStatusCode.NoContent) {
-        if (response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) {
+    if (it != HttpStatusCode.OK && it != HttpStatusCode.NoContent && it != HttpStatusCode.Found) {
+        if ((response.bodyAsText().contains("<HTML><HEAD>") && retries < 30) || retries < 2) {
             delay(2000 * (retries + 1).toLong())
 
             return true
@@ -156,4 +158,25 @@ private suspend fun checkResponseStatus(
         }
     }
     return false
+}
+
+suspend fun getRedirectUrl(
+    url: String,
+    accessToken: String? = null,
+    retries: Int = 0
+): String {
+    val response = noRedirectClient.get(url) {
+        contentType(ContentType.Application.Json)
+
+        if (accessToken != null) {
+            bearerAuth(accessToken)
+        }
+    }
+
+    if (checkResponseStatus(response.status, response, retries)) return getRedirectUrl(url, accessToken, retries + 1)
+
+    return response.headers["Location"] ?: throw MagisterException(
+        response.status, response.bodyAsText(),
+        "Request failed with status code ${response.status.value} with message ${response.bodyAsText()} and headers ${response.headers}"
+    )
 }

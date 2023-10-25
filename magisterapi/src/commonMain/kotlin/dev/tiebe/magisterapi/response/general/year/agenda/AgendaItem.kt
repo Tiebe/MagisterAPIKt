@@ -50,7 +50,7 @@ data class AgendaItem(
     @SerialName("HerhaalStatus")
     val repeatingState: Int,
     @SerialName("Herhaling")
-    val repeating: JsonObject?,
+    val repeating: Repeating?,
     @SerialName("Vakken")
     val subjects: List<Subject>,
     @SerialName("Docenten")
@@ -64,18 +64,18 @@ data class AgendaItem(
     @SerialName("HeeftBijlagen")
     val hasAttachments: Boolean,
     @SerialName("Bijlagen")
-    val attachments: JsonObject?
+    val attachments: List<Attachment>?
 ) {
     fun getInfoType(): InfoType {
-        return InfoType.values().find { it.infoType == infoType } ?: InfoType.NONE
+        return InfoType.entries.find { it.infoType == infoType } ?: InfoType.NONE
     }
 
     fun getType(): Type {
-        return Type.values().find { it.type == type } ?: Type.NONE
+        return Type.entries.find { it.type == type } ?: Type.NONE
     }
 
     fun getStatus(): Status {
-        return Status.values().find { it.status == status } ?: Status.NONE
+        return Status.entries.find { it.status == status } ?: Status.NONE
     }
 
     companion object {
@@ -92,17 +92,28 @@ data class AgendaItem(
             @SerialName("BeginDatum")
             val startingDate: String,
             @SerialName("EindDatum")
-            val endingDate: String,
+            val endingDate: String? = null,
             @SerialName("AantalKeer")
-            val numberOfTimes: Int,
+            val numberOfTimes: Int? = null,
             @SerialName("Dagelijks")
-            val daily: Daily
+            val daily: Daily? = null,
+            @SerialName("Wekelijks")
+            val weekly: Weekly? = null
+
         )
 
         @Serializable
         data class Daily(
             @SerialName("Interval")
             val interval: Int
+        )
+
+        @Serializable
+        data class Weekly(
+            @SerialName("Interval")
+            val interval: Int,
+            @SerialName("Dagen")
+            val days: Int
         )
 
         enum class Type(val type: Int) {
@@ -152,5 +163,28 @@ data class AgendaItem(
             MOVED(9), // Verplaatst
             CHANGED_AND_MOVED(10) // Gewijzigd en verplaatst
         }
+        @Serializable
+        data class Attachment(
+            @SerialName("Id")
+            val id: Int = 0,
+            @SerialName("Naam")
+            val naam: String = "",
+            @SerialName("ContentType")
+            val contentType: String = "",
+            @SerialName("Status")
+            val status: Int = 0,
+            @SerialName("Datum")
+            val datum: String = "",
+            @SerialName("Grootte")
+            val grootte: Int = 0,
+            @SerialName("Url")
+            val url: String? = null,
+            @SerialName("UniqueId")
+            val uniqueId: String = "",
+            @SerialName("BronSoort")
+            val bronSoort: Int = 0,
+            @SerialName("Links")
+            val links: List<Link> = listOf()
+        )
     }
 }
