@@ -67,7 +67,7 @@ publishing {
     publications.withType<MavenPublication> {
 
         //if (getExtraString("signing.keyId") != null)
-        artifact(javadocJar.get())
+        // artifact(javadocJar.get())
 
         // Provide artifacts information requited by Maven Central
         pom {
