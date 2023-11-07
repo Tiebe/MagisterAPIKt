@@ -1,3 +1,7 @@
+plugins {
+    id("root.publication")
+}
+
 buildscript {
     repositories {
         gradlePluginPortal()

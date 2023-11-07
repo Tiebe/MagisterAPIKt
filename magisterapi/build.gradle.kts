@@ -3,7 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization") version "1.9.0"
-    id("convention.publication")
+    id("module.publication")
 }
 
 val build_version: String by project
