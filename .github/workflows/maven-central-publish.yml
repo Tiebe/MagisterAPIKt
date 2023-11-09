@@ -54,7 +54,7 @@ jobs:
     - name: Publish to Maven Central
       uses: gradle/gradle-build-action@v2.6.0
       with:
-        arguments: publishAllPublicationsToSonatypeRepository --no-daemon --scan -Psigning.gnupg.passphrase='${{secrets.OSSRH_GPG_SECRET_KEY_PASSWORD}}' -Psigning.gnupg.keyName='${{secrets.OSSRH_GPG_SECRET_KEY_ID}}'
+        arguments: publishAllPublicationsToOSSRHRepository --no-daemon --scan -Psigning.gnupg.passphrase='${{secrets.OSSRH_GPG_SECRET_KEY_PASSWORD}}' -Psigning.gnupg.keyName='${{secrets.OSSRH_GPG_SECRET_KEY_ID}}'
       env:
         SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
         SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
