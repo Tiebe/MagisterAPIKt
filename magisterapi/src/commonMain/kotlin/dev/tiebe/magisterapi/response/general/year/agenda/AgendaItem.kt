@@ -67,15 +67,15 @@ data class AgendaItem(
     val attachments: List<Attachment>?
 ) {
     fun getInfoType(): InfoType {
-        return InfoType.entries.find { it.infoType == infoType } ?: InfoType.NONE
+        return InfoType.values().find { it.infoType == infoType } ?: InfoType.NONE
     }
 
     fun getType(): Type {
-        return Type.entries.find { it.type == type } ?: Type.NONE
+        return Type.values().find { it.type == type } ?: Type.NONE
     }
 
     fun getStatus(): Status {
-        return Status.entries.find { it.status == status } ?: Status.NONE
+        return Status.values().find { it.status == status } ?: Status.NONE
     }
 
     companion object {
