@@ -40,7 +40,7 @@ data class Resource(
     @SerialName("UniqueId")
     val uniqueId: String,
     @SerialName("Uri")
-    val uri: JsonObject?,
+    val uri: String?,
     @SerialName("Volgnr")
     val index: Int,
     @SerialName("Zichtbaar")
