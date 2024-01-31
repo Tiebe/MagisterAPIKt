@@ -19,7 +19,7 @@ object GradeFlow {
     private const val semesterEndpoint =
         "api/personen/%s/aanmeldingen/%s/cijfers/cijferperiodenvooraanmelding" // %s = account id %s = jaar id
     private const val gradesEndpoint =
-        "api/personen/%s/aanmeldingen/%s/cijfers/cijferoverzichtvooraanmelding?actievePerioden=false&alleenBerekendeKolommen=false&alleenPTAKolommen=false&peildatum=%s" // %s = account id %s = jaar id %s = jaar eind
+        "api/personen/%s/aanmeldingen/%s/cijfers/cijferoverzichtvooraanmelding?actievePerioden=false&alleenBerekendeKolommen=false&alleenPTAKolommen=%s&peildatum=%s" // %s = account id %s = jaar id %s alleen pta %s = jaar eind
     private const val gradeEndpoint =
         "api/personen/%s/aanmeldingen/%s/cijfers/extracijferkolominfo/%s" // %s = account id %s = jaar id %s = cijfer kolom id
     private const val recentGradesEndpoint =
@@ -41,12 +41,13 @@ object GradeFlow {
         return semesters ?: emptyList()
     }
 
-    suspend fun getGrades(tenantUrl: Url, accessToken: String, accountId: Int, year: Year): List<Grade> {
+    suspend fun getGrades(tenantUrl: Url, accessToken: String, accountId: Int, year: Year, onlyPTA: Boolean = false): List<Grade> {
         val response = requestGET(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 gradesEndpoint.format(
                     accountId,
                     year.id,
+                    onlyPTA.toString(),
                     year.end
                 )
             ).build(), hashMapOf(), accessToken
