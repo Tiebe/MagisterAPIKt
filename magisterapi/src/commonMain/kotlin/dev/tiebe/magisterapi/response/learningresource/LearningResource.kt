@@ -33,7 +33,7 @@ data class LearningResource(
         @Serializable
         data class Subject(
             @SerialName("Afkorting")
-            val abbreviation: String,
+            val abbreviation: String?,
             @SerialName("Id")
             val id: Int,
             @SerialName("LicentieUrl")
