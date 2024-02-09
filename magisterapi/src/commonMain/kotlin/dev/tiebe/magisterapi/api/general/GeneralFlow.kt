@@ -2,6 +2,7 @@
 
 package dev.tiebe.magisterapi.api.general
 
+import dev.tiebe.magisterapi.api.json
 import io.ktor.client.call.*
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
@@ -22,8 +23,8 @@ object GeneralFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val years = json["items"]?.let { Json.decodeFromJsonElement<List<Year>>(it) }
+        val jsonData: JsonObject = response.body()
+        val years = jsonData["items"]?.let { json.decodeFromJsonElement<List<Year>>(it) }
         return years ?: emptyList()
     }
 

@@ -41,6 +41,8 @@ data class AgendaItem(
     val displayType: Int,
     @SerialName("Inhoud")
     val content: String?,
+    @SerialName("Opmerking")
+    val comment: String?,
     @SerialName("InfoType")
     val infoType: Int,
     @SerialName("Aantekening")

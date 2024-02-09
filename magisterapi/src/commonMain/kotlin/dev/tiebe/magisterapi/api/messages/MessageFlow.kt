@@ -2,6 +2,7 @@
 
 package dev.tiebe.magisterapi.api.messages
 
+import dev.tiebe.magisterapi.api.json
 import dev.tiebe.magisterapi.api.requestDELETE
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.api.requestPATCH
@@ -15,7 +16,6 @@ import io.ktor.http.*
 import io.ktor.utils.io.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
@@ -32,8 +32,8 @@ object MessageFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val folders = json["items"]?.let { Json.decodeFromJsonElement<List<MessageFolder>>(it) }
+        val jsonData: JsonObject = response.body()
+        val folders = jsonData["items"]?.let { json.decodeFromJsonElement<List<MessageFolder>>(it) }
         return folders ?: emptyList()
     }
 
@@ -44,8 +44,8 @@ object MessageFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val folders = json["items"]?.let { Json.decodeFromJsonElement<List<MessageFolder>>(it) }
+        val jsonData: JsonObject = response.body()
+        val folders = jsonData["items"]?.let { json.decodeFromJsonElement<List<MessageFolder>>(it) }
         return folders ?: emptyList()
     }
 
@@ -57,8 +57,8 @@ object MessageFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val messages = json["items"]?.let { Json.decodeFromJsonElement<List<Message>>(it) }
+        val jsonData: JsonObject = response.body()
+        val messages = jsonData["items"]?.let { json.decodeFromJsonElement<List<Message>>(it) }
         return messages ?: emptyList()
     }
 
@@ -69,8 +69,8 @@ object MessageFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        return Json.decodeFromJsonElement(json)
+        val jsonData: JsonObject = response.body()
+        return json.decodeFromJsonElement(jsonData)
     }
 
     @Serializable
@@ -103,7 +103,7 @@ object MessageFlow {
         requestPATCH(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 mainEndpoint
-            ).build(), Json.encodeToString<PatchMessageRequest<Boolean>>(
+            ).build(), json.encodeToString<PatchMessageRequest<Boolean>>(
                 PatchMessageRequest(
                     listOf(
                         PatchMessageRequest.Companion.PatchMessage(
@@ -129,8 +129,8 @@ object MessageFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val attachments = json["items"]?.let { Json.decodeFromJsonElement<List<Attachment>>(it) }
+        val jsonData: JsonObject = response.body()
+        val attachments = jsonData["items"]?.let { json.decodeFromJsonElement<List<Attachment>>(it) }
         return attachments ?: emptyList()
     }
 
@@ -160,7 +160,7 @@ object MessageFlow {
         requestPATCH(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 mainEndpoint
-            ).build(), Json.encodeToString<PatchMessageRequest<Int>>(PatchMessageRequest(
+            ).build(), json.encodeToString<PatchMessageRequest<Int>>(PatchMessageRequest(
                 listOf(
                     PatchMessageRequest.Companion.PatchMessage(
                         messageId,

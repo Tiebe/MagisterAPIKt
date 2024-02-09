@@ -2,9 +2,9 @@
 
 package dev.tiebe.magisterapi.api.absence
 
+import dev.tiebe.magisterapi.api.json
 import io.ktor.client.call.*
 import io.ktor.http.*
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
 import dev.tiebe.magisterapi.api.requestGET
@@ -22,8 +22,8 @@ object AbsenceFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val absences = json["Items"]?.let { Json.decodeFromJsonElement<List<Absence>>(it) }
+        val jsonData: JsonObject = response.body()
+        val absences = jsonData["Items"]?.let { json.decodeFromJsonElement<List<Absence>>(it) }
         return absences ?: emptyList()
     }
 

@@ -2,6 +2,7 @@
 
 package dev.tiebe.magisterapi.api.learningresource
 
+import dev.tiebe.magisterapi.api.json
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.response.learningresource.LearningResource
 import dev.tiebe.magisterapi.utils.format
@@ -23,8 +24,8 @@ object LearningResourceFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val learningResources = json["Items"]?.let { Json.decodeFromJsonElement<List<LearningResource>>(it) }
+        val jsonData: JsonObject = response.body()
+        val learningResources = jsonData["Items"]?.let { json.decodeFromJsonElement<List<LearningResource>>(it) }
         return learningResources ?: emptyList()
     }
 

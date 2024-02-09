@@ -2,6 +2,7 @@
 
 package dev.tiebe.magisterapi.api.studyguide
 
+import dev.tiebe.magisterapi.api.json
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.response.studyguide.StudyGuide
 import dev.tiebe.magisterapi.response.studyguide.StudyGuideContent
@@ -32,8 +33,8 @@ object StudyGuideFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val studyGuide = json["Items"]?.let { Json.decodeFromJsonElement<List<StudyGuide>>(it) }
+        val jsonData: JsonObject = response.body()
+        val studyGuide = jsonData["Items"]?.let { json.decodeFromJsonElement<List<StudyGuide>>(it) }
         return studyGuide ?: emptyList()
     }
 
@@ -44,8 +45,8 @@ object StudyGuideFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val studyGuide = json["Items"]?.let { Json.decodeFromJsonElement<List<StudyGuide>>(it) }
+        val jsonData: JsonObject = response.body()
+        val studyGuide = jsonData["Items"]?.let { json.decodeFromJsonElement<List<StudyGuide>>(it) }
         return studyGuide ?: emptyList()
     }
 

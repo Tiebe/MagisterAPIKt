@@ -2,6 +2,7 @@
 
 package dev.tiebe.magisterapi.api.agenda
 
+import dev.tiebe.magisterapi.api.json
 import io.ktor.client.call.*
 import io.ktor.http.*
 import dev.tiebe.magisterapi.api.requestGET
@@ -28,9 +29,9 @@ object AgendaFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
+        val jsonData: JsonObject = response.body()
 
-        val agenda = json["Items"]?.let { Json.decodeFromJsonElement<List<AgendaItem>>(it) }
+        val agenda = jsonData["Items"]?.let { json.decodeFromJsonElement<List<AgendaItem>>(it) }
         return agenda ?: emptyList()
     }
 

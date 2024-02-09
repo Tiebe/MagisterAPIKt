@@ -2,6 +2,7 @@
 
 package dev.tiebe.magisterapi.api.assignment
 
+import dev.tiebe.magisterapi.api.json
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.response.assignment.Assignment
 import dev.tiebe.magisterapi.response.assignment.AssignmentVersion
@@ -33,8 +34,8 @@ object AssignmentFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
-        val assignments = json["Items"]?.let { Json.decodeFromJsonElement<List<Assignment>>(it) }
+        val jsonData: JsonObject = response.body()
+        val assignments = jsonData["Items"]?.let { json.decodeFromJsonElement<List<Assignment>>(it) }
         return assignments ?: emptyList()
     }
 

@@ -15,7 +15,7 @@ In Maven:
 <dependency>
   <groupId>dev.tiebe</groupId>
   <artifactId>magisterapi</artifactId>
-  <version>1.1.9</version>
+  <version>1.1.19</version>
 </dependency>
 ```
 

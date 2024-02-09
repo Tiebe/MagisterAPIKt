@@ -1,5 +1,6 @@
 package dev.tiebe.magisterapi.api.account
 
+import dev.tiebe.magisterapi.api.json
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.response.profileinfo.Contact
 import dev.tiebe.magisterapi.response.profileinfo.ContactInfo
@@ -73,7 +74,7 @@ object ProfileInfoFlow {
             accessToken
         )
 
-        return Json.decodeFromJsonElement(response.body<JsonElement>().jsonObject["items"]?.jsonArray!!)
+        return json.decodeFromJsonElement(response.body<JsonElement>().jsonObject["items"]?.jsonArray!!)
     }
 
     suspend fun getContact(tenantUrl: String, accessToken: String, contactUrl: String): Contact {

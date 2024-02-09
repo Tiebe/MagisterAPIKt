@@ -2,6 +2,7 @@
 
 package dev.tiebe.magisterapi.api.grades
 
+import dev.tiebe.magisterapi.api.json
 import dev.tiebe.magisterapi.api.requestGET
 import dev.tiebe.magisterapi.response.general.year.Year
 import dev.tiebe.magisterapi.response.general.year.grades.Grade
@@ -36,8 +37,8 @@ object GradeFlow {
         )
 
 
-        val json: JsonObject = response.body()
-        val semesters = json["items"]?.let { Json.decodeFromJsonElement<List<GradeSemester>>(it) }
+        val jsonData: JsonObject = response.body()
+        val semesters = jsonData["items"]?.let { json.decodeFromJsonElement<List<GradeSemester>>(it) }
         return semesters ?: emptyList()
     }
 
@@ -53,9 +54,9 @@ object GradeFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
+        val jsonData: JsonObject = response.body()
 
-        val grades = json["Items"]?.let { Json.decodeFromJsonElement<List<Grade>>(it) }
+        val grades = jsonData["Items"]?.let { json.decodeFromJsonElement<List<Grade>>(it) }
 
         for (grade in grades ?: emptyList()) {
             grade.yearId = year.id
@@ -89,9 +90,9 @@ object GradeFlow {
             ).build(), hashMapOf(), accessToken
         )
 
-        val json: JsonObject = response.body()
+        val jsonData: JsonObject = response.body()
 
-        val grades = json["items"]?.let { Json.decodeFromJsonElement<List<RecentGrade>>(it) }
+        val grades = jsonData["items"]?.let { json.decodeFromJsonElement<List<RecentGrade>>(it) }
 
         return grades ?: emptyList()
     }

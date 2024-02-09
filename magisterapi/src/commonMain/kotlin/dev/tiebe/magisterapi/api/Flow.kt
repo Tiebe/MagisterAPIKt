@@ -13,12 +13,15 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.delay
 import kotlinx.serialization.json.Json
 
+val json = Json {
+    ignoreUnknownKeys = true
+    isLenient = true
+    coerceInputValues = true
+}
+
 private val client = HttpClient {
     install(ContentNegotiation) {
-        json(json = Json {
-            ignoreUnknownKeys = true
-            isLenient = true
-        })
+        json(json)
     }
 }
 
