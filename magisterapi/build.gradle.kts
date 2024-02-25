@@ -55,7 +55,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 implementation("com.benasher44:uuid:0.4.1")
                 implementation("com.soywiz.korlibs.krypto:krypto:$kryptoVersion")
-                implementation("io.matthewnelson.kotlin-components:encoding-base64:1.1.3")
+                implementation("io.matthewnelson.kotlin-components:encoding-base64:1.2.3")
             }
         }
         val jvmMain by getting {
