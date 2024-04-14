@@ -2,14 +2,8 @@
 
 package dev.tiebe.magisterapi.api.messages
 
-import dev.tiebe.magisterapi.api.json
-import dev.tiebe.magisterapi.api.requestDELETE
-import dev.tiebe.magisterapi.api.requestGET
-import dev.tiebe.magisterapi.api.requestPATCH
-import dev.tiebe.magisterapi.response.messages.Attachment
-import dev.tiebe.magisterapi.response.messages.Message
-import dev.tiebe.magisterapi.response.messages.MessageData
-import dev.tiebe.magisterapi.response.messages.MessageFolder
+import dev.tiebe.magisterapi.api.*
+import dev.tiebe.magisterapi.response.messages.*
 import io.ktor.client.call.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -173,6 +167,25 @@ object MessageFlow {
                         )
                     )
                 ))
+            ), accessToken
+        )
+    }
+
+    suspend fun sendMessage(tenantUrl: Url, accessToken: String, subject: String, content: String, to: List<Int>, cc: List<Int>, bcc: List<Int>, priority: Boolean = false, sendingOption: String = "standaard", attachments: List<SentMessage.Attachment> = emptyList()) {
+        requestPOST(
+            URLBuilder(tenantUrl).appendEncodedPathSegments(
+                mainEndpoint
+            ).build(), json.encodeToString(
+                SentMessage(
+                    to.map { SentMessage.Receiver(it, "persoon") },
+                    cc.map { SentMessage.Receiver(it, "persoon") },
+                    bcc.map { SentMessage.Receiver(it, "persoon") },
+                    priority,
+                    content,
+                    subject,
+                    sendingOption,
+                    attachments
+                )
             ), accessToken
         )
     }
