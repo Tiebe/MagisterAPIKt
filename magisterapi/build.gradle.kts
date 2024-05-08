@@ -43,7 +43,7 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "2.3.7"
+        val ktorVersion = "2.3.11"
         val kryptoVersion = "3.4.0"
         val commonMain by getting {
             dependencies {
