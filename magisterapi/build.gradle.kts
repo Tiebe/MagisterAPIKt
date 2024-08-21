@@ -17,7 +17,7 @@ kotlin {
             kotlinOptions.jvmTarget = "11"
         }
     }
-    android {
+    androidTarget {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
         }

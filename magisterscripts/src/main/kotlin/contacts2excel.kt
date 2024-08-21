@@ -44,7 +44,7 @@ suspend fun main() {
              }
          }
 
-        sheet("Medewerkers V5") {
+        sheet("Medewerkers") {
             for (teacher in teachers) {
                 row {
                     cell(teacher.voorletters)

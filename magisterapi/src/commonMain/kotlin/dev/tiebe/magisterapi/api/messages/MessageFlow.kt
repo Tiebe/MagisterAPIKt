@@ -43,11 +43,11 @@ object MessageFlow {
         return folders ?: emptyList()
     }
 
-    suspend fun getMessages(tenantUrl: Url, accessToken: String, messagesLink: MessageFolder.Companion.Link, amount: Int, skip: Int): List<Message> {
+    suspend fun getMessages(tenantUrl: Url, accessToken: String, messagesLink: MessageFolder.Companion.Link, amount: Int, skip: Int, search: String = ""): List<Message> {
         val response = requestGET(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
                 messagesLink.href,
-                "?top=$amount&skip=$skip"
+                "?top=$amount&skip=$skip&trefwoorden=$search"
             ).build(), hashMapOf(), accessToken
         )
 
