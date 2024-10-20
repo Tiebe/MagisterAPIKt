@@ -60,10 +60,10 @@ object StudyGuideFlow {
         return response.body()
     }
 
-    suspend fun getStudyGuideContentItem(tenantUrl: Url, accessToken: String, itemLink: String): StudyGuideContentItem {
+    suspend fun getStudyGuideContentItem(tenantUrl: Url, accessToken: String, itemLink: String, useFolders: Boolean = false): StudyGuideContentItem {
         val response = requestGET(
             URLBuilder(tenantUrl).appendEncodedPathSegments(
-                itemLink
+                itemLink.run { if (useFolders) "$this?gebruikMappenStructuur=true" else this }
             ).build(), hashMapOf(), accessToken
         )
 
