@@ -25,7 +25,7 @@ data class LearningResource(
     @SerialName("Titel")
     val title: String,
     @SerialName("Uitgeverij")
-    val publisher: String,
+    val publisher: String?,
     @SerialName("Vak")
     val subject: Subject
 ) {
