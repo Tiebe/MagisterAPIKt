@@ -1,6 +1,5 @@
 package dev.tiebe.magisterapi.api.account
 
-import com.benasher44.uuid.uuid4
 import io.ktor.client.call.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
