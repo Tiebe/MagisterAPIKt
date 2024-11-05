@@ -10,16 +10,19 @@ import dev.tiebe.magisterapi.api.requestPOST
 import dev.tiebe.magisterapi.response.TokenResponse
 import dev.tiebe.magisterapi.utils.LoginUtility.generateCodeChallenge
 import dev.tiebe.magisterapi.utils.LoginUtility.generateCodeVerifier
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 object LoginFlow {
     @Serializable
     class AuthURL(val url: String, val codeVerifier: String)
 
+    @OptIn(ExperimentalUuidApi::class)
     fun createAuthURL(): AuthURL {
         val codeVerifier: String = generateCodeVerifier()
         val codeChallenge: String = generateCodeChallenge(codeVerifier)
-        val state: String = uuid4().toString()
-        val nonce: String = uuid4().toString()
+        val state: String = Uuid.random().toString()
+        val nonce: String = Uuid.random().toString()
 
         return AuthURL("$authorizationEndpoint?client_id=$clientId&redirect_uri=$redirectUri&response_type=${
             responseType.encodeURLParameter()}&scope=${scope.encodeURLParameter()}&state=${state.encodeURLParameter()}&nonce=${nonce.encodeURLParameter()}&code_challenge=${codeChallenge.encodeURLParameter()}&code_challenge_method=${
@@ -54,11 +57,11 @@ object LoginFlow {
 
     private var authorizationEndpoint: Url = URLBuilder(mainEndpoint).appendEncodedPathSegments("connect/authorize").build()
     private var tokenEndpoint: Url = URLBuilder(mainEndpoint).appendEncodedPathSegments("connect/token").build()
-    const val clientId = "M6LOAPP"
-    const val scope = "openid profile email offline_access"
-    const val responseType = "id_token code"
-    const val redirectUri = "m6loapp://oauth2redirect/"
-    const val codeChallengeMethod = "S256"
+    private const val clientId = "M6LOAPP"
+    private const val scope = "openid profile email offline_access"
+    private const val responseType = "id_token code"
+    private const val redirectUri = "m6loapp://oauth2redirect/"
+    private const val codeChallengeMethod = "S256"
 
     suspend fun refreshToken(refreshToken: String): TokenResponse {
         val body: HashMap<String, String> = hashMapOf(

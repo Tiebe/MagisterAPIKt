@@ -26,7 +26,14 @@ kotlin {
 
     }
 
-    linuxX64("native") {
+    linuxX64("nativeX64") {
+        binaries {
+            sharedLib {
+                baseName = "native"
+            }
+        }
+    }
+    linuxArm64("nativeArm64") {
         binaries {
             sharedLib {
                 baseName = "native"
@@ -57,13 +64,11 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
-                implementation("com.benasher44:uuid:0.4.1")
                 implementation("com.soywiz.korlibs.krypto:krypto:$kryptoVersion")
-                implementation("io.matthewnelson.kotlin-components:encoding-base64:1.1.3")
             }
         }
         val jvmMain by getting {
@@ -84,11 +89,18 @@ kotlin {
             }
         }
 
-        val nativeMain by getting {
+        val nativeX64Main by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-curl:$ktorVersion")
             }
         }
+
+        val nativeArm64Main by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-curl:$ktorVersion")
+            }
+        }
+
     }
 }
 
