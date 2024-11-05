@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    kotlin("plugin.serialization") version "1.9.20"
+    kotlin("plugin.serialization") version "2.0.20"
     id("module.publication")
 }
 
@@ -59,7 +59,6 @@ kotlin {
 
     sourceSets {
         val ktorVersion = "3.0.0"
-        val kryptoVersion = "3.4.0"
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
@@ -105,7 +104,7 @@ kotlin {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     publishing {
