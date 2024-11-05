@@ -26,6 +26,14 @@ kotlin {
 
     }
 
+    linuxX64("native") {
+        binaries {
+            sharedLib {
+                baseName = "native"
+            }
+        }
+    }
+
     js(IR)
 
     iosX64()
@@ -43,16 +51,16 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "2.3.7"
+        val ktorVersion = "3.0.0"
         val kryptoVersion = "3.4.0"
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
                 implementation("com.benasher44:uuid:0.4.1")
                 implementation("com.soywiz.korlibs.krypto:krypto:$kryptoVersion")
                 implementation("io.matthewnelson.kotlin-components:encoding-base64:1.1.3")
@@ -73,6 +81,12 @@ kotlin {
             dependsOn(commonMain)
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
+        }
+
+        val nativeMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-curl:$ktorVersion")
             }
         }
     }
