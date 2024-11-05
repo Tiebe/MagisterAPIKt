@@ -68,7 +68,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("com.soywiz.korlibs.krypto:krypto:$kryptoVersion")
+                implementation("org.kotlincrypto.hash:sha2:0.5.3")
             }
         }
         val jvmMain by getting {
