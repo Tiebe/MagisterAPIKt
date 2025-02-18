@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    kotlin("plugin.serialization") version "2.0.20"
+    kotlin("plugin.serialization") version "1.9.20"
     id("module.publication")
 }
 
@@ -26,21 +26,6 @@ kotlin {
 
     }
 
-    linuxX64("nativeX64") {
-        binaries {
-            sharedLib {
-                baseName = "native"
-            }
-        }
-    }
-    linuxArm64("nativeArm64") {
-        binaries {
-            sharedLib {
-                baseName = "native"
-            }
-        }
-    }
-
     js(IR)
 
     iosX64()
@@ -58,16 +43,19 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "3.0.0"
+        val ktorVersion = "2.3.7"
+        val kryptoVersion = "3.4.0"
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("org.kotlincrypto.hash:sha2:0.5.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+                implementation("com.benasher44:uuid:0.4.1")
+                implementation("com.soywiz.korlibs.krypto:krypto:$kryptoVersion")
+                implementation("io.matthewnelson.kotlin-components:encoding-base64:1.1.3")
             }
         }
         val jvmMain by getting {
@@ -87,24 +75,11 @@ kotlin {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
         }
-
-        val nativeX64Main by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-curl:$ktorVersion")
-            }
-        }
-
-        val nativeArm64Main by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-cio:$ktorVersion")
-            }
-        }
-
     }
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     publishing {
