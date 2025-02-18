@@ -8,7 +8,7 @@ version = "1.0"
 repositories {
     mavenCentral()
 }
-val ktorVersion = "2.0.3"
+val ktorVersion = "2.3.13"
 
 dependencies {
     implementation(project(":magisterapi"))
