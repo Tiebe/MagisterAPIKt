@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    kotlin("plugin.serialization") version "2.0.20"
+    kotlin("plugin.serialization") version "2.1.10"
     id("module.publication")
 }
 
