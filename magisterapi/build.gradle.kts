@@ -96,7 +96,7 @@ kotlin {
 
         val nativeArm64Main by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-curl:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
             }
         }
 
